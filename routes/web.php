@@ -26,8 +26,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // want movie
+    Route::get('/movies/bucket/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
+        ->name('want.movie.add');
+    Route::post('/movies/bucket/add', \App\Http\Controllers\WantMovie\Add\CreateController::class)
+        ->name('want.movie.create');
+    Route::get('/movies/bucket/update/{movieId}', \App\Http\Controllers\WantMovie\Update\IndexController::class)
+        ->name('want.movie.update.index');
+    Route::put('/movies/bucket/update/{movieId}', \App\Http\Controllers\WantMovie\Update\PutController::class)
+        ->name('want.movie.update.put');
+    Route::delete('/movies/bucket/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
+        ->name('want.movie.delete');
 });
 
-Route::get('/movies/want', App\http\Controllers\WantMovie\IndexController::class);
+Route::get('/movies/bucket', \App\Http\Controllers\WantMovie\IndexController::class)
+    ->name('want.movie.index');
+
+
+
 
 require __DIR__ . '/auth.php';

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WantMovie;
 
-class IndexController extends Controller
+class DeleteController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,11 +16,9 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $user_id = $request->user()->id;
-
-        $wantMovies = WantMovie::where('user_id', $user_id)->get();
-
-
-        return view('movie.want.index')->with('wantMovies', $wantMovies);
+        $movieId = (int) $request->route('movieId');
+        $wantMovie = WantMovie::where('id', $movieId)->firstOrFail();
+        $wantMovie->delete();
+        return redirect()->route('want.movie.index')->with('feedback.success', "映画を削除しました");
     }
 }

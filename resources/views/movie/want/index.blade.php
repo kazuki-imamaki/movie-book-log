@@ -9,8 +9,15 @@
 </head>
 
 <body>
+    <a href="{{ route('want.movie.add') }} ">投稿</a>
     @foreach ($wantMovies as $wantMovie)
         <p>{{ $wantMovie->title }}</p>
+        <a href="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} ">編集</a>
+        <form action="{{ route('want.movie.delete', ['movieId' => $wantMovie->id]) }}" method="post">
+            @method('DELETE')
+            @csrf
+            <button type="submit">削除</button>
+        </form>
     @endforeach
 </body>
 
