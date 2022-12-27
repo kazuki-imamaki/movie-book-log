@@ -13,11 +13,11 @@
         <p>投稿フォーム</p>
         <form action="{{ route('want.movie.create') }}" method="post">
             @csrf
-            <label for="tweet-content">タイトル</label>
             <textarea id="movie-title" type="text" name="title" placeholder="タイトルを入力"></textarea>
             @error('title')
                 <p style="color: red;">{{ $message }}</p>
             @enderror
+            <textarea id="movie-memo" type="text" name="memo" placeholder="メモを入力"></textarea>
             <button type="submit">保存</button>
         </form>
     </div>

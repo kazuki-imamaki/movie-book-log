@@ -39,6 +39,11 @@ class CreateRequest extends FormRequest
         return $this->input('title');
     }
 
+    public function memo(): string
+    {
+        return $this->input('memo');
+    }
+
 
     // public function memo(): string
     // {
