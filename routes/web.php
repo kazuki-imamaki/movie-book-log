@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // want movie
+    Route::get('/movies/bucket', \App\Http\Controllers\WantMovie\IndexController::class)
+        ->name('want.movie.index');
     Route::get('/movies/bucket/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
         ->name('want.movie.add');
     Route::post('/movies/bucket/add', \App\Http\Controllers\WantMovie\Add\CreateController::class)
@@ -40,8 +42,6 @@ Route::middleware('auth')->group(function () {
         ->name('want.movie.delete');
 });
 
-Route::get('/movies/bucket', \App\Http\Controllers\WantMovie\IndexController::class)
-    ->name('want.movie.index');
 
 
 
