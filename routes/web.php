@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
         ->name('want.movie.update.put');
     Route::delete('/movies/bucket/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
         ->name('want.movie.delete');
+    Route::post('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
+        ->name('want.movie.search');
 });
 
 

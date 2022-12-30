@@ -12,30 +12,6 @@
         <div class="mb-5">
             <a href="{{ route('want.movie.add') }} ">投稿</a>
         </div>
-        {{-- <div class="flex flex-wrap -m-4">
-            @foreach ($wantMovies as $wantMovie)
-                <div class="xl:w-1/4 md:w-1/2 p-4">
-                    <div class="bg-gray-100 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6"
-                            src="https://dummyimage.com/720x400" alt="content">
-                        <h3 class="tracking-widest text-blue-500 text-xs font-medium title-font">SUBTITLE</h3>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ $wantMovie->title }}</h2>
-                        <p class="leading-relaxed text-base mb-2">{{ $wantMovie->memo }}</p>
-                        <div class="flex">
-                            <a class="mr-2"
-                                href="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} ">編集</a>
-                            <form action="{{ route('want.movie.delete', ['movieId' => $wantMovie->id]) }}"
-                                method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit">削除</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div> --}}
-
     </section>
 
     <section class="text-gray-600 body-font">
@@ -43,10 +19,10 @@
 
             <div class="flex flex-wrap -m-4">
                 @foreach ($wantMovies as $wantMovie)
-                    <div class="p-4 md:w-1/3">
+                    <div class="p-4 md:w-1/6">
                         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                            <img class="lg:h-48 md:h-36 w-full object-cover object-center"
-                                src="https://dummyimage.com/720x400" alt="blog">
+                            <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ $wantMovie->image }}"
+                                alt="none">
                             <div class="px-6 py-3">
                                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">MOVIE
                                 </h2>
