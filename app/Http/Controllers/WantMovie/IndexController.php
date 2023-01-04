@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $wantMovies = WantMovie::where('user_id', $user_id)->get();
+        $wantMovies = WantMovie::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
 
 
         return view('movie.want.index')->with('wantMovies', $wantMovies);
