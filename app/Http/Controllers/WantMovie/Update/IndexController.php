@@ -17,11 +17,30 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // dd($request->query);
         $movieId = (int) $request->route('movieId');
         $wantMovie = WantMovie::where('id', $movieId)->firstOrFail();
         if (is_null($movieId)) {
             throw new NotFoundHttpException('存在しません');
         }
-        return view('movie.want.update')->with('wantMovie', $wantMovie);
+
+        if (is_null($request->title)) {
+            $editted_movie = array(
+                'id' => $wantMovie->id,
+                'title' => $wantMovie->title,
+                'memo' => $wantMovie->memo,
+                'image' => $wantMovie->image
+            );
+        } else {
+            $editted_movie = array(
+                'id' => $wantMovie->id,
+                'title' => $request->title,
+                'memo' => $wantMovie->memo,
+                'image' => $request->poster_path
+            );
+        }
+        // dd($editted_movie);
+        return view('movie.want.update')->with('wantMovie', $editted_movie);
+        // return view('movie.want.update')->with('wantMovie', $wantMovie);
     }
 }

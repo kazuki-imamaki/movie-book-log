@@ -33,6 +33,16 @@ class UpdateRequest extends FormRequest
         return $this->input('title');
     }
 
+    public function memo(): string
+    {
+        return $this->input('memo');
+    }
+
+    public function image(): string
+    {
+        return $this->input('image');
+    }
+
     public function id(): int
     {
         return (int) $this->route('movieId');

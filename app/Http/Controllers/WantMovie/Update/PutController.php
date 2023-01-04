@@ -19,6 +19,8 @@ class PutController extends Controller
     {
         $movie = WantMovie::where('id', $request->id())->firstOrFail();
         $movie->title = $request->title();
+        $movie->memo = $request->memo();
+        $movie->image = $request->image();
         $movie->save();
         return redirect()->route('want.movie.update.index', ['movieId' => $movie->id])->with('feedback.success', "編集しました。");
     }
