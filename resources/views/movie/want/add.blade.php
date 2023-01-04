@@ -16,10 +16,13 @@
                                 @error('title')
                                     <p style="color: red;">{{ $message }}</p>
                                 @enderror
-                                <input value="{{ $request->title }}" type="text" id="movie-title" name="title"
-                                    placeholder="タイトルを入力"
-                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                <button type="submit" formaction="{{ route('want.movie.search') }}">検索</button>
+                                <div class="flex">
+                                    <input value="{{ $request->title }}" type="text" id="movie-title" name="title"
+                                        placeholder="タイトルを入力"
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
+                                    <button type="submit" formaction="{{ route('want.movie.search') }}"><i
+                                            class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div>
