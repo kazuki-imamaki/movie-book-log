@@ -29,14 +29,14 @@ class IndexController extends Controller
                 'id' => $wantMovie->id,
                 'title' => $wantMovie->title,
                 'memo' => $wantMovie->memo,
-                'image' => $wantMovie->image
+                'image' => str_replace("342", "154", $wantMovie->image),
             );
         } else {
             $editted_movie = array(
                 'id' => $wantMovie->id,
                 'title' => $request->title,
                 'memo' => $wantMovie->memo,
-                'image' => $request->poster_path
+                'image' =>  str_replace("342", "154", $request->poster_path),
             );
         }
         // dd($editted_movie);
