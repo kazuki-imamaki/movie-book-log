@@ -37,13 +37,13 @@
                     @csrf
                     <input type="hidden" name="id" value="{{ $wantMovie['id'] }}">
                     <div class="flex flex-wrap -m-2">
-                        <div class="p-2 w-1/2">
+                        <div class="p-2 w-full px-10    ">
                             <div class="relative">
                                 <label for="title" class="leading-7 text-sm text-gray-600">Title</label>
                                 @error('title')
                                     <p style="color: red;">{{ $message }}</p>
                                 @enderror
-                                <div class="flex">
+                                <div class="flex mb-3">
                                     <input value="{{ $wantMovie['title'] }}" type="text" id="movie-title"
                                         name="title" placeholder="タイトルを入力"
                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
@@ -51,10 +51,10 @@
                                             class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <img src="{{ $wantMovie['image'] }}">
-                            <input type="hidden" value="{{ $wantMovie['image'] }}" name="image">
+                            <div>
+                                <img src="{{ $wantMovie['image'] }}">
+                                <input type="hidden" value="{{ $wantMovie['image'] }}" name="image">
+                            </div>
                         </div>
                         <div class="p-2 w-full">
                             <div class="relative">
