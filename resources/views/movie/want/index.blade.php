@@ -20,36 +20,35 @@
             <div class="flex flex-wrap -m-4">
                 @foreach ($wantMovies as $wantMovie)
                     <div class="p-4 md:w-1/8 sm:w-1/4">
-                        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                            <img class="lg:h-700 md:h-250 w-full object-cover object-center"
-                                src="{{ $wantMovie->image }}" alt="none">
-                            <div class="px-6 py-3">
-                                <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">MOVIE
-                                </h2>
-                                <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ $wantMovie->title }}
-                                </h1>
-                                <p class="leading-relaxed mb-3 h-10">{{ $wantMovie->memo }}</p>
-                                <div class="flex">
-                                    <div>
-                                        <a class="text-blue-500 inline-flex items-center mr-2 md:mb-2 lg:mb-0"
-                                            href="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} ">編集
-                                            {{-- <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor"
-                                            stroke-width="2" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M5 12h14"></path>
-                                            <path d="M12 5l7 7-7 7"></path>
-                                        </svg> --}}
-                                        </a>
+                        <form action="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} "
+                            method="get">
+                            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                                <input type="image" class="lg:h-700 md:h-250 w-full object-cover object-center"
+                                    src="{{ $wantMovie->image }}" alt="none">
+                                <div class="px-6 py-3">
+                                    <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">MOVIE
+                                    </h2>
+                                    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">
+                                        {{ $wantMovie->title }}
+                                    </h1>
+                                    <p class="leading-relaxed mb-3 h-10">{{ $wantMovie->memo }}</p>
+                                    <div class="flex">
+                                        {{-- <div>
+                                            <a class="text-blue-500 inline-flex items-center mr-2 md:mb-2 lg:mb-0"
+                                                href="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} ">編集
+                                            </a>
+                                        </div> --}}
+                                        {{-- <form action="{{ route('want.movie.delete', ['movieId' => $wantMovie->id]) }}"
+                                            method="post">
+                                            @method('DELETE')
+                                            @csrf --}}
+                                        {{-- <button type="submit"
+                                            formaction="{{ route('want.movie.delete', ['movieId' => $wantMovie->id]) }}">削除</button> --}}
+                                        {{-- </form> --}}
                                     </div>
-                                    <form action="{{ route('want.movie.delete', ['movieId' => $wantMovie->id]) }}"
-                                        method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit">削除</button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 @endforeach
             </div>
