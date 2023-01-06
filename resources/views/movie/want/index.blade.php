@@ -3,10 +3,16 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-5 mx-auto">
             <div class="flex flex-wrap w-full">
-                <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Bucket</h1>
-                    <div class="h-1 w-20 bg-blue-500 rounded"></div>
-                </div>
+                {{-- <div class="lg:w-1/2 w-full mb-6 lg:mb-0"> --}}
+                {{-- <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Want to</h1> --}}
+                <x-nav-link :href="route('want.movie.index')" :active="request()->routeIs('want.movie.index')">
+                    {{ __('Want to') }}
+                </x-nav-link>
+                <x-nav-link :href="route('done.movie.index')" :active="request()->routeIs('done.movie.index')">
+                    {{ __('Done') }}
+                </x-nav-link>
+                {{-- <div class="h-1 w-20 bg-blue-500 rounded"></div> --}}
+                {{-- </div> --}}
             </div>
         </div>
         <div class="mb-5">
