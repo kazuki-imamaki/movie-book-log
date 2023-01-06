@@ -3,8 +3,14 @@
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-12">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">見る予定</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn
-                    asymmetrical gentrify.</p>
+                <div>
+                    <x-nav-link :href="route('want.movie.add')" :active="request()->routeIs('want.movie.add')">
+                        {{ __('Want to') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('done.movie.add')" :active="request()->routeIs('done.movie.add')">
+                        {{ __('Done') }}
+                    </x-nav-link>
+                </div>
             </div>
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                 <form method="post">
@@ -20,6 +26,7 @@
                                     <input value="{{ $request->title }}" type="text" id="movie-title" name="title"
                                         placeholder="タイトルを入力"
                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
+                                    <input type="hidden" name="process_flag" value="want_to">
                                     <button type="submit" formaction="{{ route('want.movie.search') }}"><i
                                             class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
