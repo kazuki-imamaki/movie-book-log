@@ -27,22 +27,28 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // want_to
     Route::get('/movies/want_to', \App\Http\Controllers\WantMovie\IndexController::class)
         ->name('want.movie.index');
-
-    Route::get('/movies/done', \App\Http\Controllers\DoneMovie\IndexController::class)
-        ->name('done.movie.index');
-
-    Route::get('/movies/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
+    Route::get('/movies/want_to/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
         ->name('want.movie.add');
-    Route::post('/movies/add', \App\Http\Controllers\WantMovie\Add\CreateController::class)
+    Route::post('/movies/want_to/add', \App\Http\Controllers\WantMovie\Add\CreateController::class)
         ->name('want.movie.create');
-    Route::get('/movies/record/{movieId}', \App\Http\Controllers\WantMovie\Update\IndexController::class)
+    Route::get('/movies/want_to/record/{movieId}', \App\Http\Controllers\WantMovie\Update\IndexController::class)
         ->name('want.movie.update.index');
-    Route::post('/movies/record/{movieId}', \App\Http\Controllers\WantMovie\Update\PutController::class)
+    Route::post('/movies/want_to/record/{movieId}', \App\Http\Controllers\WantMovie\Update\PutController::class)
         ->name('want.movie.update.put');
     Route::delete('/movies/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
         ->name('want.movie.delete');
+
+    // done
+    Route::get('/movies/done', \App\Http\Controllers\DoneMovie\IndexController::class)
+        ->name('done.movie.index');
+
+    Route::get('movies/done/add', \App\Http\Controllers\DoneMovie\Add\AddController::class)
+        ->name('done.movie.add');
+
+
     Route::post('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
         ->name('want.movie.search');
 });
