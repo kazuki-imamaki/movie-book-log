@@ -1,26 +1,4 @@
 <x-app-layout>
-
-    {{-- <body>
-        <div>
-            <a href="{{ route('want.movie.index') }}">戻る</a>
-            <p>投稿フォーム</p>
-            @if (session('feedback.success'))
-                <p style="color: green">{{ session('feedback.success') }}</p>
-            @endif
-
-            <form action="{{ route('want.movie.update.put', ['movieId' => $wantMovie->id]) }}" method="post">
-                @method('PUT')
-                @csrf
-                <label for="tweet-content">タイトル</label>
-                <textarea id="movie-title" type="text" name="title" placeholder="タイトルを入力">{{ $wantMovie->title }}</textarea>
-                @error('title')
-                    <p style="color: red;">{{ $message }}</p>
-                @enderror
-                <button type="submit">編集</button>
-            </form>
-        </div>
-    </body> --}}
-
     <section class="text-gray-600 body-font relative">
         <div class="container px-5 py-24 mx-auto">
             @if (session('feedback.success'))
@@ -28,9 +6,15 @@
             @endif
             <div class="flex flex-col text-center w-full mb-12">
                 <a href="{{ route('want.movie.index') }}">戻る</a>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">編集</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn
-                    asymmetrical gentrify.</p>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">記録する</h1>
+                <div>
+                    <x-nav-link :href="route('want.movie.update.index', ['movieId' => $wantMovie['id']])" :active="request()->routeIs('want.movie.update.index', ['movieId' => $wantMovie['id']])">
+                        {{ __('Want to') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('want.movie.update.index', ['movieId' => $wantMovie['id']])" :active="request()->routeIs('want.movie.update.index', ['movieId' => $wantMovie['id']])">
+                        {{ __('Done') }}
+                    </x-nav-link>
+                </div>
             </div>
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                 <form method="post">
