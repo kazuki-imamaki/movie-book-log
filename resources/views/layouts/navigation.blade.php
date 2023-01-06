@@ -15,7 +15,10 @@
                     {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link> --}}
-                    <x-nav-link :href="route('want.movie.index')" :active="request()->routeIs('want.movie.index') || request()->routeIs('done.movie.index')">
+                    <x-nav-link :href="route('want.movie.index')" :active="request()->routeIs('want.movie.index') ||
+                        request()->routeIs('done.movie.index') ||
+                        request()->routeIs('want.movie.add') ||
+                        request()->routeIs('want.movie.update.index', ['movieId' => $wantMovie['id']])">
                         {{ __('Movie') }}
                     </x-nav-link>
                 </div>
