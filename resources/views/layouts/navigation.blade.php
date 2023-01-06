@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('want.movie.index')" :active="request()->routeIs('want.movie.index') ||
                         request()->routeIs('done.movie.index') ||
                         request()->routeIs('want.movie.add') ||
-                        request()->routeIs('want.movie.update.index', ['movieId' => $wantMovie['id']])">
+                        request()->routeIs('want.movie.update.index')">
                         {{ __('Movie') }}
                     </x-nav-link>
                 </div>
