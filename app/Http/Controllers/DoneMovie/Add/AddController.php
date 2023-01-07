@@ -15,6 +15,6 @@ class AddController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('movie.done.add');
+        return view('movie.done.add')->with('request', $request);
     }
 }

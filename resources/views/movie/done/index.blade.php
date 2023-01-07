@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="mb-5">
-            <a href="{{ route('want.movie.add') }} ">投稿</a>
+            <a href="{{ route('done.movie.add') }} ">投稿</a>
         </div>
     </section>
 

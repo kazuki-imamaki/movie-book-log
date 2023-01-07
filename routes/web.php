@@ -44,9 +44,10 @@ Route::middleware('auth')->group(function () {
     // done
     Route::get('/movies/done', \App\Http\Controllers\DoneMovie\IndexController::class)
         ->name('done.movie.index');
-
     Route::get('movies/done/add', \App\Http\Controllers\DoneMovie\Add\AddController::class)
         ->name('done.movie.add');
+    Route::post('/movie/done/add', \App\Http\Controllers\DoneMovie\Add\CreateController::class)
+        ->name('done.movie.create');
 
 
     Route::post('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
