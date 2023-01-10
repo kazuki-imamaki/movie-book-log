@@ -48,10 +48,10 @@ Route::middleware('auth')->group(function () {
         ->name('done.movie.add');
     Route::post('/movies/done/add', \App\Http\Controllers\DoneMovie\Add\CreateController::class)
         ->name('done.movie.create');
-    Route::post('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\IndexController::class)
+    Route::get('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\IndexController::class)
         ->name('done.movie.update.index');
-    // Route::post('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\PutController::class)
-    //     ->name('done.movie.update.put');
+    Route::post('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\PutController::class)
+        ->name('done.movie.update.put');
 
 
     Route::post('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
