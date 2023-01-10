@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DoneMovie;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DoneMovie;
+use App\Models\WantMovie;
 
 class IndexController extends Controller
 {
@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $doneMovies = DoneMovie::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+        $doneMovies = WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('created_at', 'desc')->get();
 
         return view('movie.done.index')->with('wantMovies', $doneMovies);
     }
