@@ -49,6 +49,11 @@ class CreateRequest extends FormRequest
         return $this->input('image');
     }
 
+    public function is_done(): int
+    {
+        return $this->input('is_done');
+    }
+
 
     // public function memo(): string
     // {

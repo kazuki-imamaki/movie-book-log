@@ -22,6 +22,7 @@ class CreateController extends Controller
         $wantMovie->memo = $request->memo();
         $wantMovie->image = $request->image();
         $wantMovie->user_id = $request->userId();
+        $wantMovie->is_done = $request->is_done();
         $wantMovie->save();
         return redirect()->route('want.movie.index');
     }
