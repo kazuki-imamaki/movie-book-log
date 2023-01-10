@@ -1,31 +1,23 @@
 <x-app-layout>
     <section class="text-gray-600 body-font relative">
         <div class="container px-5 py-24 mx-auto">
-            <form method="post">
-                @if (session('feedback.success'))
-                    <p style="color: green">{{ session('feedback.success') }}</p>
-                @endif
-                <div class="flex flex-col text-center w-full mb-12">
-                    <a href="{{ route('want.movie.index') }}">戻る</a>
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">記録する</h1>
-                    {{-- <div>
+            @if (session('feedback.success'))
+                <p style="color: green">{{ session('feedback.success') }}</p>
+            @endif
+            <div class="flex flex-col text-center w-full mb-12">
+                <a href="{{ route('want.movie.index') }}">戻る</a>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">記録する</h1>
+                <div>
                     <x-nav-link :href="route('want.movie.update.index', ['movieId' => $wantMovie['id']])" :active="request()->routeIs('want.movie.update.index', ['movieId' => $wantMovie['id']])">
                         {{ __('Want to') }}
                     </x-nav-link>
                     <x-nav-link :href="route('done.movie.update.index', ['movieId' => $wantMovie['id']])" :active="request()->routeIs('done.movie.update.index', ['movieId' => $wantMovie['id']])">
                         {{ __('Done') }}
                     </x-nav-link>
-                </div> --}}
-                    <div class="flex justify-evenly">
-                        <p>want to</p>
-                        <button type="submit"
-                            formaction="{{ route('done.movie.update.index', ['movieId' => $wantMovie['id']]) }}">
-                            done
-                        </button>
-                    </div>
                 </div>
-                <div class="lg:w-1/2 md:w-2/3 mx-auto">
-
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                <form method="post">
                     @csrf
                     <input type="hidden" name="id" value="{{ $wantMovie['id'] }}">
                     <div class="flex flex-wrap -m-2">
@@ -62,9 +54,8 @@
                             {{-- @method('PUT') --}}
                         </div>
                     </div>
-
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </section>
 </x-app-layout>
