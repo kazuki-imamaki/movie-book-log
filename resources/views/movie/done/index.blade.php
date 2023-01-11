@@ -26,7 +26,7 @@
             <div class="flex flex-wrap -m-4">
                 @foreach ($wantMovies as $wantMovie)
                     <div class="p-4 md:w-1/8 sm:w-1/4">
-                        <form action="{{ route('want.movie.update.index', ['movieId' => $wantMovie->id]) }} "
+                        <form action="{{ route('done.movie.update.index', ['movieId' => $wantMovie->id]) }} "
                             method="get">
                             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                 <input type="image" class="lg:h-700 md:h-250 w-full object-cover object-center"
