@@ -27,7 +27,8 @@ class CreateUpdateRequest extends FormRequest
             'title' => 'required|max:50',
             'memo' => 'nullable|max:140',
             'image' => 'nullable',
-            'is_done' => 'required'
+            'is_done' => 'required',
+            'date' => 'nullable'
         ];
     }
 
@@ -55,6 +56,11 @@ class CreateUpdateRequest extends FormRequest
     public function is_done(): int
     {
         return $this->input('is_done');
+    }
+
+    public function rDate(): ?string
+    {
+        return $this->input('date');
     }
 
     public function id(): int

@@ -23,7 +23,7 @@ class CreateController extends Controller
         // $doneMovie->star = $request->star();
         $doneMovie->user_id = $request->userId();
         $doneMovie->is_done = $request->is_done();
-
+        $doneMovie->date = $request->rDate();
         $doneMovie->save();
         return redirect()->route('done.movie.index');
     }

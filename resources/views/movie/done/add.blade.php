@@ -15,7 +15,7 @@
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                 <form method="post">
                     @csrf
-                    <div class="flex flex-wrap -m-2">
+                    <div class="flex flex-wrap m-2">
                         <div class="p-2 w-1/2">
                             <div class="relative">
                                 <label for="title" class="leading-7 text-sm text-gray-600">Title</label>
@@ -32,23 +32,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <img src="{{ $request->poster_path }}">
-                            <input type="hidden" value="{{ $request->poster_path }}" name="image">
-                        </div>
-                        <div class="p-2 w-full">
-                            <div class="relative">
-                                <label for="message" class="leading-7 text-sm text-gray-600">Memo</label>
-                                <textarea id="movie-memo" name="memo" placeholder="メモを入力"
-                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-                            </div>
-                        </div>
-                        <input type="hidden" value=1 name="is_done">
-                        <div class="p-2 w-full">
-                            <button type="submit" formaction="{{ route('done.movie.create') }}"
-                                class="flex mx-auto text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                    </div>
+                    <div>
+                        <label for="date" class="leading-7 text-sm text-gray-600">Date</label>
+                        <input type="date" name="date"
+                            class="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
+                    </div>
+                    <div>
+                        <img src="{{ $request->poster_path }}">
+                        <input type="hidden" value="{{ $request->poster_path }}" name="image">
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="message" class="leading-7 text-sm text-gray-600">Memo</label>
+                            <textarea id="movie-memo" name="memo" placeholder="メモを入力"
+                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                         </div>
                     </div>
+                    <input type="hidden" value=1 name="is_done">
+                    <div class="p-2 w-full">
+                        <button type="submit" formaction="{{ route('done.movie.create') }}"
+                            class="flex mx-auto text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                    </div>
+
                 </form>
             </div>
         </div>
