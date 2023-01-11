@@ -18,8 +18,8 @@ class IndexController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $doneMovies = WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('created_at', 'desc')->get();
+        $doneMovies = WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('updated_at', 'desc')->get();
 
-        return view('movie.done.index')->with('wantMovies', $doneMovies);
+        return view('movie.done.index')->with('doneMovies', $doneMovies);
     }
 }
