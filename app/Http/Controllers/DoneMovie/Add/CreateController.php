@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\DoneMovie\Add;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\DoneMovie\CreateRequest;
+use App\Http\Requests\DoneMovie\CreateUpdateRequest;
 use App\Models\WantMovie;
 
 class CreateController extends Controller
@@ -15,7 +14,7 @@ class CreateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(CreateRequest $request)
+    public function __invoke(CreateUpdateRequest $request)
     {
         $doneMovie = new WantMovie();
         $doneMovie->title = $request->title();

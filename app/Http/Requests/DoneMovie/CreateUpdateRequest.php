@@ -4,7 +4,7 @@ namespace App\Http\Requests\DoneMovie;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class CreateUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:50',
+            'memo' => 'nullable|max:140',
+            'image' => 'nullable',
+            'is_done' => 'required'
         ];
     }
 
@@ -39,12 +42,12 @@ class CreateRequest extends FormRequest
         return $this->input('title');
     }
 
-    public function memo(): string
+    public function memo(): ?string
     {
         return $this->input('memo');
     }
 
-    public function image(): string
+    public function image(): ?string
     {
         return $this->input('image');
     }
@@ -54,8 +57,8 @@ class CreateRequest extends FormRequest
         return $this->input('is_done');
     }
 
-    // public function star(): int
-    // {
-    //     return $this->input('star');
-    // }
+    public function id(): int
+    {
+        return (int) $this->route('movieId');
+    }
 }
