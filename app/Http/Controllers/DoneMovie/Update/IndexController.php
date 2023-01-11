@@ -26,6 +26,7 @@ class IndexController extends Controller
                 'title' => $doneMovie->title,
                 'memo' => $doneMovie->memo,
                 'image' => str_replace("342", "154", $doneMovie->image),
+                'date' => $doneMovie->date,
             );
         } else {
             $editted_movie = array(
@@ -33,6 +34,7 @@ class IndexController extends Controller
                 'title' => $request->title,
                 'memo' => $doneMovie->memo,
                 'image' =>  str_replace("342", "154", $request->poster_path),
+                'date' => $doneMovie->date,
             );
         }
 
