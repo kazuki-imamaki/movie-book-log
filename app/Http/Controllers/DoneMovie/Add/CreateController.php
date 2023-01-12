@@ -20,10 +20,11 @@ class CreateController extends Controller
         $doneMovie->title = $request->title();
         $doneMovie->memo = $request->memo();
         $doneMovie->image = $request->image();
-        // $doneMovie->star = $request->star();
         $doneMovie->user_id = $request->userId();
         $doneMovie->is_done = $request->is_done();
         $doneMovie->date = $request->rDate();
+        $doneMovie->star = $request->star();
+        // dd($doneMovie);
         $doneMovie->save();
         return redirect()->route('done.movie.index');
     }

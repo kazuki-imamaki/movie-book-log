@@ -38,6 +38,18 @@
                         <input type="date" name="date"
                             class="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
                     </div>
+                    <div class="rate-form">
+                        <input id="star5" type="radio" name="star" value="5">
+                        <label for="star5">★</label>
+                        <input id="star4" type="radio" name="star" value="4">
+                        <label for="star4">★</label>
+                        <input id="star3" type="radio" name="star" value="3">
+                        <label for="star3">★</label>
+                        <input id="star2" type="radio" name="star" value="2">
+                        <label for="star2">★</label>
+                        <input id="star1" type="radio" name="star" value="1">
+                        <label for="star1">★</label>
+                    </div>
                     <div>
                         <img src="{{ $request->poster_path }}">
                         <input type="hidden" value="{{ $request->poster_path }}" name="image">

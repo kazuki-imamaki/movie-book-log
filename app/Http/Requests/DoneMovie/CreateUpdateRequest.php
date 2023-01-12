@@ -28,7 +28,8 @@ class CreateUpdateRequest extends FormRequest
             'memo' => 'nullable|max:140',
             'image' => 'nullable',
             'is_done' => 'required',
-            'date' => 'nullable'
+            'date' => 'nullable',
+            'star' => 'nullable|max:5|min:1'
         ];
     }
 
@@ -61,6 +62,11 @@ class CreateUpdateRequest extends FormRequest
     public function rDate(): ?string
     {
         return $this->input('date');
+    }
+
+    public function star(): ?int
+    {
+        return $this->input('star');
     }
 
     public function id(): int
