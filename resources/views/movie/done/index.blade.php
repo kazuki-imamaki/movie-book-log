@@ -27,7 +27,7 @@
                             method="get">
                             <div class=" border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                 <input type="image" class="lg:h-700 md:h-250 w-full object-cover object-center"
-                                    src="{{ $doneMovie->image }}" alt="">
+                                    src="{{ $doneMovie->image }}" alt="none">
                                 <div class="px-6 py-3">
                                     <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">MOVIE
                                     </h2>

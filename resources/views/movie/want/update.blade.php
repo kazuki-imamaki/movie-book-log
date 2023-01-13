@@ -53,6 +53,9 @@
                                 formaction="{{ route('want.movie.update.put', ['movieId' => $wantMovie['id']]) }}"
                                 class="flex mx-auto text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
                             {{-- @method('PUT') --}}
+                            <button type="submit"
+                                formaction="{{ route('want.movie.delete', ['movieId' => $wantMovie['id']]) }}">削除</button>
+
                         </div>
                     </div>
                 </form>

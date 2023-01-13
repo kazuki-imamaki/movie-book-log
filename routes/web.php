@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
         ->name('want.movie.update.index');
     Route::post('/movies/want_to/record/{movieId}', \App\Http\Controllers\WantMovie\Update\PutController::class)
         ->name('want.movie.update.put');
-    Route::delete('/movies/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
+    Route::post('/movies/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
         ->name('want.movie.delete');
 
     // done
