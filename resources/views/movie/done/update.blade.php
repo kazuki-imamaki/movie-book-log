@@ -5,7 +5,7 @@
                 <p style="color: green">{{ session('feedback.success') }}</p>
             @endif
             <div class="flex flex-col text-center w-full mb-12">
-                <a href="{{ route('want.movie.index') }}">戻る</a>
+                <a href="{{ route('want.movie.index') }}"><i class="fa-solid fa-arrow-left"></i></a>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">記録する</h1>
                 <div>
                     <x-nav-link :href="route('want.movie.update.index', ['movieId' => $doneMovie['id']])" :active="request()->routeIs('want.movie.update.index', ['movieId' => $doneMovie['id']])">

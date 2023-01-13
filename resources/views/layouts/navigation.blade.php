@@ -27,6 +27,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <a class="mr-5" href="{{ route('done.movie.add') }} "><i class="fa-solid fa-plus"></i></a>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
