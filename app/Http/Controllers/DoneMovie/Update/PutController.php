@@ -24,6 +24,7 @@ class PutController extends Controller
         $movie->image = str_replace("154", "342", $movie->image);
         $movie->is_done = $request->is_done();
         $movie->date = $request->rDate();
+        $movie->star = $request->star();
         $movie->save();
         return redirect()->route('done.movie.update.index', ['movieId' => $movie->id])->with('feedback.success', "編集しました。");
     }

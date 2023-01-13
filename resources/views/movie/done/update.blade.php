@@ -40,6 +40,24 @@
                                 <input type="date" name="date" value="{{ $doneMovie['date'] }}"
                                     class="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1">
                             </div>
+                            <div class="rate-form">
+                                <input id="star5" type="radio" name="star" value="5"
+                                    {{ $doneMovie['star'] == 5 ? 'checked' : '' }}>
+                                <label for="star5">★</label>
+                                <input id="star4" type="radio" name="star" value="4"
+                                    {{ $doneMovie['star'] == 4 ? 'checked' : '' }}>
+                                <label for="star4">★</label>
+                                <input id="star3" type="radio" name="star" value="3"
+                                    {{ $doneMovie['star'] == 3 ? 'checked' : '' }}>
+                                <label for="star3">★</label>
+                                <input id="star2" type="radio" name="star" value="2"
+                                    {{ $doneMovie['star'] == 2 ? 'checked' : '' }}>
+                                <label for="star2">★</label>
+                                <input id="star1" type="radio" name="star" value="1"
+                                    {{ $doneMovie['star'] == 1 ? 'checked' : '' }}>
+                                <label for="star1">★</label>
+                            </div>
+
                             <div>
                                 <img src="{{ $doneMovie['image'] }}">
                                 <input type="hidden" value="{{ $doneMovie['image'] }}" name="image">
