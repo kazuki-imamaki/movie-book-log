@@ -23,12 +23,12 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
 
-            <div class="flex flex-wrap -m-4">
+            <div class="flex flex-wrap">
                 @foreach ($doneMovies as $doneMovie)
-                    <div class="p-4 md:w-1/8 sm:w-1/4">
+                    <div class="p-4 md:w-1/8 sm:w-1/4 min-h-50">
                         <form action="{{ route('done.movie.update.index', ['movieId' => $doneMovie->id]) }} "
                             method="get">
-                            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                            <div class=" border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                 <input type="image" class="lg:h-700 md:h-250 w-full object-cover object-center"
                                     src="{{ $doneMovie->image }}" alt="none">
                                 <div class="px-6 py-3">
@@ -38,6 +38,13 @@
                                         {{ $doneMovie->title }}
                                     </h1>
                                     <p class="leading-relaxed mb-3 h-10">{{ $doneMovie->memo }}</p>
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($i < $doneMovie->star)
+                                            <span class="text-yellow-300">★</span>
+                                        @else
+                                            <span class="text-gray-300">★</span>
+                                        @endif
+                                    @endfor
                                     <p>{{ $doneMovie->date }}</p>
                                     <div class="flex">
                                         {{-- <div>
