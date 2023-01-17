@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', \App\Http\Controllers\WantMovie\IndexController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // want_to
+    Route::get('/', \App\Http\Controllers\WantMovie\IndexController::class);
     Route::get('/movies/want_to', \App\Http\Controllers\WantMovie\IndexController::class)
         ->name('want.movie.index');
     Route::get('/movies/want_to/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
