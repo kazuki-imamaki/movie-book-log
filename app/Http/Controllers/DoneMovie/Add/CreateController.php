@@ -19,7 +19,7 @@ class CreateController extends Controller
         $doneMovie = new WantMovie();
         $doneMovie->title = $request->title();
         $doneMovie->memo = $request->memo();
-        $doneMovie->image = $request->image();
+        $doneMovie->image = str_replace("154", "342", $request->image());
         $doneMovie->user_id = $request->userId();
         $doneMovie->is_done = $request->is_done();
         $doneMovie->date = $request->rDate();
