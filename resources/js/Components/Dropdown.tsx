@@ -1,10 +1,34 @@
-import { useState, createContext, useContext, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from '@inertiajs/inertia-react';
 import { Transition } from '@headlessui/react';
 
-const DropDownContext = createContext();
+interface ContextType {
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    toggleOpen: React.MouseEventHandler<HTMLDivElement>,
+}
 
-const Dropdown = ({ children }) => {
+interface Children {
+    children: React.ReactNode;
+}
+
+type ContentProps = {
+    align?: string;
+    width?: string;
+    contentClasses?: string;
+    children: React.ReactNode;
+}
+
+type DropdownLinkProps = {
+    href: string;
+    method?: string;
+    as?: string;
+    children: React.ReactNode;
+}
+
+const DropDownContext = React.createContext<ContextType>({} as ContextType);
+
+const Dropdown = ({ children }: Children) => {
     const [open, setOpen] = useState(false);
 
     const toggleOpen = () => {
@@ -18,7 +42,7 @@ const Dropdown = ({ children }) => {
     );
 };
 
-const Trigger = ({ children }) => {
+const Trigger = ({ children }: Children) => {
     const { open, setOpen, toggleOpen } = useContext(DropDownContext);
 
     return (
@@ -30,7 +54,7 @@ const Trigger = ({ children }) => {
     );
 };
 
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }) => {
+const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }: ContentProps) => {
     const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
@@ -50,7 +74,6 @@ const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-whit
     return (
         <>
             <Transition
-                as={Fragment}
                 show={open}
                 enter="transition ease-out duration-200"
                 enterFrom="transform opacity-0 scale-95"
@@ -59,18 +82,22 @@ const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-whit
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <div
-                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                    onClick={() => setOpen(false)}
-                >
-                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>{children}</div>
-                </div>
+                {open && (
+                    <div
+                        className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
+                        onClick={() => setOpen(false)}
+                    >
+                        <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>
+                            {children}
+                        </div>
+                    </div>
+                )}
             </Transition>
         </>
     );
 };
 
-const DropdownLink = ({ href, method, as, children }) => {
+const DropdownLink = ({ href, method = 'post', as = 'a', children }: DropdownLinkProps) => {
     return (
         <Link
             href={href}
