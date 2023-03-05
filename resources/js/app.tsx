@@ -6,6 +6,7 @@ import { render } from "react-dom";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { createRoot } from "react-dom/client";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
@@ -18,7 +19,9 @@ createInertiaApp({
             import.meta.glob("./Pages/**/*.tsx")
         ),
     setup({ el, App, props }) {
-        return render(<App {...props} />, el);
+        createRoot(document.getElementById("app") as HTMLElement).render(
+            <App {...props} />
+        );
     },
 });
 

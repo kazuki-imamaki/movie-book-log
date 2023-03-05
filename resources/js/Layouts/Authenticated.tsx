@@ -17,22 +17,22 @@ export default function Authenticated({ auth, header, children }: Props) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className="bg-gray-800 border-none border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
+                                <Link href={route("want.movie.index")}>
                                     <ApplicationLogo className="block h-9 w-auto text-gray-500" />
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
+                                    href={route("want.movie.index")}
+                                    active={route().current("want.movie.index")}
                                 >
-                                    Dashboard
+                                    Movie
                                 </NavLink>
                             </div>
                         </div>
