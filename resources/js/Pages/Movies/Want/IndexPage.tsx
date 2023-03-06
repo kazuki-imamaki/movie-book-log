@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Head } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/react";
 import Authenticated from "@/Layouts/Authenticated";
+import { Link } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 const Index = (props: any) => {
-    console.log(props.movies);
+    // console.log(props.movies);
 
     return (
         <Authenticated
@@ -16,18 +18,20 @@ const Index = (props: any) => {
         >
             <Head title="Movie" />
 
-            <div>
+            <>
                 <section className="body-font text-white bg-gray-900">
                     <div className="container px-5 py-24 mx-auto">
                         <div className="flex flex-wrap -m-4">
                             {props.movies.map((movie, index) => (
                                 <div key={index} className="p-4 w-1/5">
                                     <div className="h-full border-none border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden bg-gray-800">
-                                        <img
-                                            className="lg:h-80 md:h-60 w-full object-cover object-center"
-                                            src={movie.image}
-                                            alt="blog"
-                                        />
+                                        <Link href={route("want.movie.index")}>
+                                            <img
+                                                className="lg:h-80 md:h-60 w-full object-cover object-center"
+                                                src={movie.image}
+                                                alt="blog"
+                                            />
+                                        </Link>
                                         <div className="p-6">
                                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                                                 MOVIE
@@ -46,7 +50,7 @@ const Index = (props: any) => {
                         </div>
                     </div>
                 </section>
-            </div>
+            </>
         </Authenticated>
     );
 };

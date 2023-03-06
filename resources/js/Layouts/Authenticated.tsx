@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/react";
+import ApplicationLogo from "../Components/ApplicationLogo";
+import Dropdown from "../Components/Dropdown";
+import NavLink from "../Components/NavLink";
+import ResponsiveNavLink from "../Components/ResponsiveNavLink";
+import AddModal from "../Components/AddModal";
 
 interface Props {
     auth: any;
     header: React.ReactNode;
     children: React.ReactNode;
+    results: any;
 }
 
-export default function Authenticated({ auth, header, children }: Props) {
+export default function Authenticated({
+    auth,
+    header,
+    children,
+    results,
+}: Props) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const ShowModal = () => {
+        setShowModal(true);
+    };
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -38,6 +51,10 @@ export default function Authenticated({ auth, header, children }: Props) {
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <button onClick={ShowModal}>
+                                <i className="fa-solid fa-plus text-white"></i>
+                            </button>
+
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -166,7 +183,14 @@ export default function Authenticated({ auth, header, children }: Props) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <AddModal
+                    showFlag={showModal}
+                    setShowModal={setShowModal}
+                    auth={auth}
+                />
+                {children}
+            </main>
         </div>
     );
 }

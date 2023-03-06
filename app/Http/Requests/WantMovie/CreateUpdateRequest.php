@@ -31,34 +31,35 @@ class CreateUpdateRequest extends FormRequest
         ];
     }
 
-    public function userId(): int
-    {
-        return $this->user()->id;
-    }
+    // public function userId(): int
+    // {
+    //     dd($this);
+    //     return $this->user()->id;
+    // }
 
 
-    public function title(): string
-    {
-        return $this->input('title');
-    }
+    // public function title(): string
+    // {
+    //     return $this->input('title');
+    // }
 
-    public function memo(): ?string
-    {
-        return $this->input('memo');
-    }
+    // public function memo(): ?string
+    // {
+    //     return $this->input('memo');
+    // }
 
-    public function image(): ?string
-    {
-        return $this->input('image');
-    }
+    // public function image(): ?string
+    // {
+    //     return $this->input('image');
+    // }
 
-    public function is_done(): int
-    {
-        return $this->input('is_done');
-    }
+    // public function is_done(): int
+    // {
+    //     return $this->input('is_done');
+    // }
 
-    public function id(): int
-    {
-        return (int) $this->route('movieId');
-    }
+    // public function id(): int
+    // {
+    //     return (int) $this->route('movieId');
+    // }
 }
