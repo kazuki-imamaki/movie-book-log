@@ -10,19 +10,19 @@ interface Props {
     auth: any;
     header: React.ReactNode;
     children: React.ReactNode;
-    results: any;
+    showModal: boolean;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Authenticated({
     auth,
     header,
     children,
-    results,
+    showModal,
+    setShowModal,
 }: Props) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
-    const [showModal, setShowModal] = useState(false);
 
     const ShowModal = () => {
         setShowModal(true);
@@ -183,14 +183,7 @@ export default function Authenticated({
                 </header>
             )}
 
-            <main>
-                <AddModal
-                    showFlag={showModal}
-                    setShowModal={setShowModal}
-                    auth={auth}
-                />
-                {children}
-            </main>
+            <main>{children}</main>
         </div>
     );
 }

@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
         ->name('done.movie.update.put');
 
 
-    Route::post('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
+    Route::get('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
         ->name('want.movie.search');
 });
 

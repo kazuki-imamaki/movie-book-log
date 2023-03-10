@@ -1,37 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 
 const AddModal = (props: any) => {
-    // console.log(props);
     const closeModal = () => {
         props.setShowModal(false);
+        props.setAdditionalMovieValue({
+            ...props.additionalMovieValue,
+            title: "",
+            poster_path: "",
+        });
     };
 
     const [postData, setPostData] = useState({
         title: "",
         memo: "",
+        poster_path: "",
         userId: props.auth.user.id,
         is_done: 0,
     });
 
+    useEffect(() => {
+        setPostData({
+            ...postData,
+            title: props.additionalMovieValue.title,
+            poster_path: props.additionalMovieValue.poster_path,
+        });
+    }, [props]);
+
+    const onFinish = () => props.setLoading(false);
+
     const onSubmit = () => {
+        props.setLoading(true);
+        setPostData({
+            ...postData,
+            title: props.additionalMovieValue.title,
+            poster_path: props.additionalMovieValue.poster_path,
+        });
+
         const url = route("want.movie.create");
-
-        router.post(url, postData);
-
+        router.post(url, postData, { onFinish });
         closeModal();
+        props.setAdditionalMovieValue({
+            ...props.additionalMovieValue,
+            title: "",
+            poster_path: "",
+        });
     };
 
     const searchImages = () => {
-        // console.log(postData.title);
-
         const url = route("want.movie.search");
-
-        router.post(url, postData);
+        router.get(url, postData);
     };
+
     return (
         <>
-            {props.showFlag ? (
+            {props.showFlag || props.passedShowFlag ? (
                 <div className="fixed top-0 left-0 right-0 w-hull h-full flex items-center justify-center bg-black bg-opacity-70">
                     <div className="bg-white m-10 p-10 rounded">
                         <p>This is ModalContent</p>
@@ -40,16 +63,28 @@ const AddModal = (props: any) => {
                             <div>
                                 <input
                                     type="text"
-                                    onChange={(e) =>
+                                    value={props.additionalMovieValue.title}
+                                    onChange={(e) => {
                                         setPostData({
                                             ...postData,
                                             title: e.target.value,
-                                        })
-                                    }
+                                        });
+                                        props.setAdditionalMovieValue({
+                                            ...props.additionalMovieValue,
+                                            title: e.target.value,
+                                        });
+                                    }}
                                 />
+
                                 <button type="button" onClick={searchImages}>
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                 </button>
+                            </div>
+                            <div>
+                                <img
+                                    src={props.additionalMovieValue.poster_path}
+                                    alt=""
+                                />
                             </div>
                             <textarea
                                 onChange={(e) =>
