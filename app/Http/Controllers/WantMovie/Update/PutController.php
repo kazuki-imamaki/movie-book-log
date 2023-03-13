@@ -20,8 +20,8 @@ class PutController extends Controller
         $movie = WantMovie::where('id', $request->id)->firstOrFail();
         $movie->title = $request->title;
         $movie->memo = $request->memo;
-        $movie->image = $request->poster_path;
-        $movie->image = str_replace("154", "342", $movie->image);
+        $movie->poster_path = $request->poster_path;
+        $movie->poster_path = str_replace("154", "342", $movie->poster_path);
         $movie->is_done = $request->is_done;
         // dd($movie);
         $movie->save();

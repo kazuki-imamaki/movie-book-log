@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
 const ImageResults = (props: any) => {
-    // console.log(props);
+    console.log("image result", props);
 
     // const [movieValue, setMovieValue] = useState({
     //     title: "",
@@ -20,7 +20,7 @@ const ImageResults = (props: any) => {
         // });
         // console.log(movieValue);
         const url = route("want.movie.index");
-        router.get(url, props.results[e.target.id]);
+        router.get(url, [props.results[e.target.id], props.keepValue]);
     };
     return (
         <Authenticated auth={props.auth}>

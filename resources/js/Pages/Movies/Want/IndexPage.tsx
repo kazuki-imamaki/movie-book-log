@@ -41,12 +41,14 @@ const Index = (props: any) => {
         if (props.editFlag) {
             setToEditMovieValue({
                 ...toEditMovieValue,
-                id: props.toEditMovie.id,
+                id: props.keepValue ? props.keepValue.id : props.toEditMovie.id,
                 title: props.toEditMovie.title,
-                memo: props.toEditMovie.memo,
-                poster_path: props.toEditMovie.image,
+                memo: props.keepValue
+                    ? props.keepValue.memo
+                    : props.toEditMovie.memo,
+                poster_path: props.toEditMovie.poster_path,
             });
-            console.log("edit effect");
+            // console.log("edit effect");
         }
     }, []);
 
@@ -96,7 +98,7 @@ const Index = (props: any) => {
                                         >
                                             <img
                                                 className="lg:h-80 md:h-60 w-full object-cover object-center"
-                                                src={movie.image}
+                                                src={movie.poster_path}
                                                 alt="blog"
                                             />
                                         </Link>
