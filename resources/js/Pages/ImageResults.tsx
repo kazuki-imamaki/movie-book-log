@@ -3,8 +3,6 @@ import { Head } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 
 const ImageResults = (props: any) => {
-    console.log("image result", props.keepValue);
-
     const passMovieValue = (e: any) => {
         console.log(props.results[e.target.id]);
         const url = route("want.movie.index");

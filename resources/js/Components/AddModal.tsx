@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 
 const AddModal = (props: any) => {
-    console.log("addModal", props);
-
     const onFinish = () => props.setLoading(false);
 
     const closeModal = () => {
@@ -113,6 +111,14 @@ const AddModal = (props: any) => {
         }
     };
 
+    const onDelete = () => {
+        props.setLoading(true);
+        const url = route("want.movie.delete", {
+            id: props.toEditMovieValue.id,
+        });
+        router.post(url, postData, { onFinish });
+        closeModal();
+    };
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (
@@ -215,6 +221,15 @@ const AddModal = (props: any) => {
                             >
                                 {props.editFlag ? "更新" : "登録"}
                             </button>
+                            {props.editFlag && (
+                                <button
+                                    onClick={onDelete}
+                                    type="submit"
+                                    className="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                >
+                                    削除
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

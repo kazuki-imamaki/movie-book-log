@@ -16,6 +16,7 @@ class DeleteController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // dd($request);
         $movieId = (int) $request->route('movieId');
         $wantMovie = WantMovie::where('id', $movieId)->firstOrFail();
         $wantMovie->delete();
