@@ -21,16 +21,19 @@ class IndexController extends Controller
 
         $wantMovies = WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
 
+        // dd($request);
         if (count($request->query) == 0) {
             return Inertia::render('Movies/Want/IndexPage', [
-                'movies' => $wantMovies
+                'movies' => $wantMovies,
+                'editFlag' => false
             ]);
         }
         if (count($request->query) != 0) {
             return Inertia::render('Movies/Want/IndexPage', [
                 'movies' => $wantMovies,
                 'additionalMovie' => $request,
-                'showFlag' => true
+                'showFlag' => true,
+                'editFlag' => false
             ]);
         }
     }

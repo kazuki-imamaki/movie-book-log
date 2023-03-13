@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 
 const AddModal = (props: any) => {
-    console.log(props);
+    console.log("addModal", props);
 
     const onFinish = () => props.setLoading(false);
 
@@ -101,7 +101,11 @@ const AddModal = (props: any) => {
 
     const searchImages = () => {
         const url = route("want.movie.search");
-        router.get(url, postData);
+        if (props.editFlag) {
+            router.get(url, putData);
+        } else {
+            router.get(url, postData);
+        }
     };
 
     return (

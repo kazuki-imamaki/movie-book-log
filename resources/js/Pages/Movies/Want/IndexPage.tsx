@@ -7,7 +7,7 @@ import AddModal from "@/Components/AddModal";
 import Loading from "@/Components/Loading";
 
 const Index = (props: any) => {
-    // console.log("index", props);
+    console.log("index", props);
 
     const [editFlag, setEditFlag] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -32,22 +32,22 @@ const Index = (props: any) => {
             setAdditionalMovieValue({
                 ...additionalMovieValue,
                 title: props.additionalMovie.title,
-                poster_path: props.additionalMovie.image,
+                poster_path: props.additionalMovie.poster_path,
             });
         }
     }, []);
 
     useEffect(() => {
-        // if (typeof props.toEditMovieValue.id != "undefined") {
-        setToEditMovieValue({
-            ...toEditMovieValue,
-            id: props.toEditMovie.id,
-            title: props.toEditMovie.title,
-            memo: props.toEditMovie.memo,
-            poster_path: props.toEditMovie.image,
-        });
-        console.log("edit effect");
-        // }
+        if (props.editFlag) {
+            setToEditMovieValue({
+                ...toEditMovieValue,
+                id: props.toEditMovie.id,
+                title: props.toEditMovie.title,
+                memo: props.toEditMovie.memo,
+                poster_path: props.toEditMovie.image,
+            });
+            console.log("edit effect");
+        }
     }, []);
 
     useEffect(() => {
