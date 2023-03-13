@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WantMovie;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Inertia\Inertia;
 
 class IndexController extends Controller
 {
@@ -17,30 +18,36 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // dd($request->query);
         $movieId = (int) $request->route('movieId');
         $wantMovie = WantMovie::where('id', $movieId)->firstOrFail();
         if (is_null($movieId)) {
             throw new NotFoundHttpException('存在しません');
         }
 
+
         if (is_null($request->title)) {
-            $editted_movie = array(
+            $toEditMovie = array(
                 'id' => $wantMovie->id,
                 'title' => $wantMovie->title,
                 'memo' => $wantMovie->memo,
                 'image' => str_replace("342", "154", $wantMovie->image),
             );
         } else {
-            $editted_movie = array(
+            $toEditMovie = array(
                 'id' => $wantMovie->id,
                 'title' => $request->title,
                 'memo' => $wantMovie->memo,
-                'image' =>  str_replace("342", "154", $request->poster_path),
+                'imge' =>  str_replace("342", "154", $request->poster_path),
             );
         }
-        // dd($editted_movie);
-        return view('movie.want.update')->with('wantMovie', $editted_movie);
-        // return view('movie.want.update')->with('wantMovie', $wantMovie);
+        $user_id = $request->user()->id;
+        $wantMovies = WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
+
+        return Inertia::render('Movies/Want/IndexPage', [
+            'movies' => $wantMovies,
+            'toEditMovie' => $toEditMovie,
+            'showFlag' => true,
+            'editFlag' => true
+        ]);
     }
 }

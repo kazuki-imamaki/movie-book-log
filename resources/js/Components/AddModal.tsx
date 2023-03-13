@@ -2,13 +2,30 @@ import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 
 const AddModal = (props: any) => {
+    console.log(props);
+
+    const onFinish = () => props.setLoading(false);
+
     const closeModal = () => {
         props.setShowModal(false);
-        props.setAdditionalMovieValue({
-            ...props.additionalMovieValue,
-            title: "",
-            poster_path: "",
-        });
+
+        if (props.editFlag) {
+            props.setToEditMovieValue({
+                ...props.toEditMovieValue,
+                id: "",
+                title: "",
+                memo: "",
+                poster_path: "",
+            });
+        } else {
+            props.setAdditionalMovieValue({
+                ...props.additionalMovieValue,
+                title: "",
+                memo: "",
+                poster_path: "",
+            });
+        }
+        props.setEditFlag(false);
     };
 
     const [postData, setPostData] = useState({
@@ -19,26 +36,61 @@ const AddModal = (props: any) => {
         is_done: 0,
     });
 
+    const [putData, setPutData] = useState({
+        id: 0,
+        title: "",
+        memo: "",
+        poster_path: "",
+        userId: props.auth.user.id,
+        is_done: 0,
+    });
+
     useEffect(() => {
-        setPostData({
-            ...postData,
-            title: props.additionalMovieValue.title,
-            poster_path: props.additionalMovieValue.poster_path,
-        });
+        if (props.editFlag) {
+            setPutData({
+                ...putData,
+                id: props.toEditMovieValue.id,
+                title: props.toEditMovieValue.title,
+                memo: props.toEditMovieValue.memo,
+                poster_path: props.toEditMovieValue.poster_path,
+            });
+        } else {
+            setPostData({
+                ...postData,
+                title: props.additionalMovieValue.title,
+                memo: props.additionalMovieValue.memo,
+                poster_path: props.additionalMovieValue.poster_path,
+            });
+        }
     }, [props]);
 
-    const onFinish = () => props.setLoading(false);
+    // console.log("addModal", postData);
 
     const onSubmit = () => {
         props.setLoading(true);
-        setPostData({
-            ...postData,
-            title: props.additionalMovieValue.title,
-            poster_path: props.additionalMovieValue.poster_path,
-        });
 
-        const url = route("want.movie.create");
-        router.post(url, postData, { onFinish });
+        if (props.editFlag) {
+            // setPostData({
+            //     ...postData,
+            //     title: props.toEditMovieValue.title,
+            //     poster_path: props.toEditMovieValue.poster_path,
+            //     memo: props.toEditMovieValue.memo,
+            // });
+
+            const url = route("want.movie.update.put", {
+                id: props.toEditMovieValue.id,
+            });
+            router.post(url, putData, { onFinish });
+        } else {
+            setPostData({
+                ...postData,
+                title: props.additionalMovieValue.title,
+                poster_path: props.additionalMovieValue.poster_path,
+            });
+
+            const url = route("want.movie.create");
+            router.post(url, postData, { onFinish });
+        }
         closeModal();
         props.setAdditionalMovieValue({
             ...props.additionalMovieValue,
@@ -72,9 +124,9 @@ const AddModal = (props: any) => {
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
                                     <path
-                                        fill-rule="evenodd"
+                                        fillRule="evenodd"
                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"
+                                        clipRule="evenodd"
                                     ></path>
                                 </svg>
                                 <span className="sr-only">Close modal</span>
@@ -92,15 +144,26 @@ const AddModal = (props: any) => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="タイトル"
                                     required
+                                    value={
+                                        props.editFlag
+                                            ? props.toEditMovieValue.title
+                                            : props.additionalMovieValue.title
+                                    }
                                     onChange={(e) => {
-                                        setPostData({
-                                            ...postData,
-                                            title: e.target.value,
-                                        });
-                                        props.setAdditionalMovieValue({
-                                            ...props.additionalMovieValue,
-                                            title: e.target.value,
-                                        });
+                                        // setPostData({
+                                        //     ...postData,
+                                        //     title: e.target.value,
+                                        // });
+
+                                        props.editFlag
+                                            ? props.setToEditMovieValue({
+                                                  ...props.toEditMovieValue,
+                                                  title: e.target.value,
+                                              })
+                                            : props.setAdditionalMovieValue({
+                                                  ...props.additionalMovieValue,
+                                                  title: e.target.value,
+                                              });
                                     }}
                                 />
                                 <button type="button" onClick={searchImages}>
@@ -109,7 +172,12 @@ const AddModal = (props: any) => {
                             </div>
                             <div>
                                 <img
-                                    src={props.additionalMovieValue.poster_path}
+                                    src={
+                                        props.editFlag
+                                            ? props.toEditMovieValue.poster_path
+                                            : props.additionalMovieValue
+                                                  .poster_path
+                                    }
                                     alt=""
                                 />
                             </div>
@@ -117,13 +185,27 @@ const AddModal = (props: any) => {
                                 <textarea
                                     placeholder="メモ"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    onChange={(e) =>
-                                        setPostData({
-                                            ...postData,
-                                            memo: e.target.value,
-                                        })
+                                    value={
+                                        props.editFlag
+                                            ? props.toEditMovieValue.memo
+                                            : null
                                     }
-                                ></textarea>
+                                    onChange={(e) =>
+                                        // setPostData({
+                                        //     ...postData,
+                                        //     memo: e.target.value,
+                                        // })
+                                        props.editFlag
+                                            ? props.setToEditMovieValue({
+                                                  ...props.toEditMovieValue,
+                                                  memo: e.target.value,
+                                              })
+                                            : props.setAdditionalMovieValue({
+                                                  ...props.additionalMovieValue,
+                                                  memo: e.target.value,
+                                              })
+                                    }
+                                />
                                 {/* <input
                                     type="password"
                                     name="password"
@@ -139,7 +221,7 @@ const AddModal = (props: any) => {
                                 type="submit"
                                 className="w-full text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                             >
-                                登録
+                                {props.editFlag ? "更新" : "登録"}
                             </button>
                         </div>
                     </div>

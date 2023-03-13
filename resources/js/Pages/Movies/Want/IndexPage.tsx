@@ -7,14 +7,23 @@ import AddModal from "@/Components/AddModal";
 import Loading from "@/Components/Loading";
 
 const Index = (props: any) => {
-    // console.log(props.movies);
-    // console.log(typeof props.additionalMovie);
+    // console.log("index", props);
 
+    const [editFlag, setEditFlag] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
+
     const [additionalMovieValue, setAdditionalMovieValue] = useState({
         title: "",
+        memo: "",
+        poster_path: "",
+    });
+
+    const [toEditMovieValue, setToEditMovieValue] = useState({
+        id: "",
+        title: "",
+        memo: "",
         poster_path: "",
     });
 
@@ -23,16 +32,31 @@ const Index = (props: any) => {
             setAdditionalMovieValue({
                 ...additionalMovieValue,
                 title: props.additionalMovie.title,
-                poster_path: props.additionalMovie.poster_path,
+                poster_path: props.additionalMovie.image,
             });
         }
+    }, []);
 
-        // console.log("useEffecct");
+    useEffect(() => {
+        // if (typeof props.toEditMovieValue.id != "undefined") {
+        setToEditMovieValue({
+            ...toEditMovieValue,
+            id: props.toEditMovie.id,
+            title: props.toEditMovie.title,
+            memo: props.toEditMovie.memo,
+            poster_path: props.toEditMovie.image,
+        });
+        console.log("edit effect");
+        // }
     }, []);
 
     useEffect(() => {
         setShowModal(props.showFlag);
     }, []);
+
+    useEffect(() => {
+        setEditFlag(props.editFlag);
+    }, [props.editFlag]);
 
     return (
         <Authenticated
@@ -47,10 +71,13 @@ const Index = (props: any) => {
                     showFlag={showModal}
                     setShowModal={setShowModal}
                     auth={props.auth}
-                    // passedShowFlag={props.showFlag}
                     additionalMovieValue={additionalMovieValue}
                     setAdditionalMovieValue={setAdditionalMovieValue}
                     setLoading={setLoading}
+                    editFlag={editFlag}
+                    setEditFlag={setEditFlag}
+                    toEditMovieValue={toEditMovieValue}
+                    setToEditMovieValue={setToEditMovieValue}
                 />
 
                 <Loading loading={loading} />
@@ -61,7 +88,12 @@ const Index = (props: any) => {
                             {props.movies.map((movie: any, index: number) => (
                                 <div key={index} className="p-4 w-1/5">
                                     <div className="h-full border-none border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden bg-gray-800">
-                                        <Link href={route("want.movie.index")}>
+                                        <Link
+                                            href={route(
+                                                "want.movie.update.index",
+                                                { id: movie.id }
+                                            )}
+                                        >
                                             <img
                                                 className="lg:h-80 md:h-60 w-full object-cover object-center"
                                                 src={movie.image}
