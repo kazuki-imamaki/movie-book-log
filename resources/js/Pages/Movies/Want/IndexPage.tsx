@@ -7,9 +7,8 @@ import AddModal from "@/Components/AddModal";
 import Loading from "@/Components/Loading";
 
 const Index = (props: any) => {
-    console.log("index", props);
-
     const [editFlag, setEditFlag] = useState(false);
+
     const [loading, setLoading] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
@@ -32,6 +31,9 @@ const Index = (props: any) => {
             setAdditionalMovieValue({
                 ...additionalMovieValue,
                 title: props.additionalMovie.title,
+                memo: props.keepValue
+                    ? props.keepValue.memo
+                    : props.toEditMovie.memo,
                 poster_path: props.additionalMovie.poster_path,
             });
         }
@@ -48,7 +50,6 @@ const Index = (props: any) => {
                     : props.toEditMovie.memo,
                 poster_path: props.toEditMovie.poster_path,
             });
-            // console.log("edit effect");
         }
     }, []);
 
@@ -103,6 +104,7 @@ const Index = (props: any) => {
                                             />
                                         </Link>
                                         <div className="p-6">
+                                            <p>{movie.id}</p>
                                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                                                 MOVIE
                                             </h2>

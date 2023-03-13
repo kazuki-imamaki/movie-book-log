@@ -20,7 +20,7 @@ class CreateController extends Controller
         $wantMovie = new WantMovie;
         $wantMovie->title = $request->title;
         $wantMovie->memo = $request->memo;
-        $wantMovie->image = str_replace("154", "342", $request->poster_path);
+        $wantMovie->poster_path = str_replace("154", "342", $request->poster_path);
         $wantMovie->user_id = $request->userId;
         $wantMovie->is_done = $request->is_done;
         $wantMovie->save();

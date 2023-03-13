@@ -21,10 +21,6 @@ class IndexController extends Controller
 
         $wantMovies = WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
 
-        // dd($request);
-        // dd($wantMovies);
-
-
         if (count($request->query) == 0) {
             return Inertia::render('Movies/Want/IndexPage', [
                 'movies' => $wantMovies,
@@ -32,17 +28,19 @@ class IndexController extends Controller
             ]);
         }
 
-        if ($request[1] == null && count($request->query) != 0) {
+        // create時の検索結果
+        if ($request[1]["editFlag"] == "0" && count($request->query) != 0) {
             return Inertia::render('Movies/Want/IndexPage', [
                 'movies' => $wantMovies,
                 'additionalMovie' => $request[0],
                 'showFlag' => true,
-                'editFlag' => false
+                'editFlag' => false,
+                'keepValue' => $request[1]
             ]);
         }
 
         // update時の検索結果
-        if ($request[1] != null) {
+        if ($request[1]["editFlag"] == "1") {
             return Inertia::render('Movies/Want/IndexPage', [
                 'movies' => $wantMovies,
                 'toEditMovie' => $request[0],

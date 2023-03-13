@@ -16,7 +16,6 @@ class SearchImageController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // dd($request->id);
         $movie_title = $request->title;
         $base_url = "https://image.tmdb.org/t/p/w154";
         $api_key = config('services.tmdb.api-key');
@@ -28,21 +27,13 @@ class SearchImageController extends Controller
 
         foreach ($results as &$result) {
             $result["poster_path"] = $base_url . $result["poster_path"];
-            // $result["process_flag"] = $request->process_flag;
         }
         unset($result);
-        // dd($results);
-        // return view('movie.search-image')->with('results', $results)->with('id', $request->id)->with('process_flag', $request->process_flag);
 
-        if ($request->id == null) {
-            return Inertia::render('ImageResults', [
-                "results" => $results
-            ]);
-        } else {
-            return Inertia::render('ImageResults', [
-                "results" => $results,
-                "keepValue" => $request
-            ]);
-        }
+        return Inertia::render('ImageResults', [
+            "results" => $results,
+            "keepValue" => $request,
+
+        ]);
     }
 }
