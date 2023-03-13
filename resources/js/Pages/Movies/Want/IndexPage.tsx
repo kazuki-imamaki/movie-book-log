@@ -104,7 +104,6 @@ const Index = (props: any) => {
                                             />
                                         </Link>
                                         <div className="p-6">
-                                            <p>{movie.id}</p>
                                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                                                 MOVIE
                                             </h2>
