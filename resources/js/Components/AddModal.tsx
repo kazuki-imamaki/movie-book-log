@@ -103,11 +103,12 @@ const AddModal = (props: any) => {
     };
 
     const searchImages = () => {
+        props.setLoading(true);
         const url = route("want.movie.search");
         if (props.editFlag) {
-            router.get(url, putData);
+            router.get(url, putData, { onFinish });
         } else {
-            router.get(url, postData);
+            router.get(url, postData, { onFinish });
         }
     };
 
