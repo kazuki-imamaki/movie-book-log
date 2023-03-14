@@ -25,6 +25,6 @@ class PutController extends Controller
         $movie->is_done = $request->is_done;
         // dd($movie);
         $movie->save();
-        return redirect()->route('want.movie.update.index', ['movieId' => $movie->id])->with('feedback.success', "編集しました。");
+        return redirect()->route('want.movie.index')->with('feedback.success', "編集しました。");
     }
 }

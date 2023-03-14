@@ -24,6 +24,7 @@ const AddModal = (props: any) => {
             });
         }
         props.setEditFlag(false);
+        router.get(route("want.movie.index"));
     };
 
     const [postData, setPostData] = useState({
