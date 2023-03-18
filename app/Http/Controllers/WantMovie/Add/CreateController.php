@@ -23,6 +23,11 @@ class CreateController extends Controller
         $wantMovie->poster_path = str_replace("154", "342", $request->poster_path);
         $wantMovie->user_id = $request->userId;
         $wantMovie->is_done = $request->is_done;
+        if ($wantMovie->is_done == true) {
+            $wantMovie->date = $request->date;
+            $wantMovie->star = $request->star;
+        }
+        // dd($wantMovie);
         $wantMovie->save();
         return redirect()->route('want.movie.index');
     }

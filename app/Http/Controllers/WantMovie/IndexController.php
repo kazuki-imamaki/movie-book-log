@@ -28,13 +28,21 @@ class IndexController extends Controller
             ]);
         }
 
+        if ($request[1]["is_done"] == "false") {
+            $doneFlag = false;
+        } else if ($request[1]["is_done"] == "true") {
+            $doneFlag = true;
+        }
+
         // create時の検索結果
         if ($request[1]["editFlag"] == "0" && count($request->query) != 0) {
+
             return Inertia::render('Movies/Want/IndexPage', [
                 'movies' => $wantMovies,
                 'additionalMovie' => $request[0],
                 'showFlag' => true,
                 'editFlag' => false,
+                'doneFlag' => $doneFlag,
                 'keepValue' => $request[1]
             ]);
         }

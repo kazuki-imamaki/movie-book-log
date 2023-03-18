@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
+import StarRating from "react-awesome-stars-rating";
 
 const AddModal = (props: any) => {
+    console.log("addModal", props);
     const onFinish = () => props.setLoading(false);
 
     const closeModal = () => {
@@ -24,7 +26,6 @@ const AddModal = (props: any) => {
             });
         }
         props.setEditFlag(false);
-        router.get(route("want.movie.index"));
     };
 
     const [postData, setPostData] = useState({
@@ -34,6 +35,8 @@ const AddModal = (props: any) => {
         userId: props.auth.user.id,
         is_done: 0,
         editFlag: 0,
+        date: "",
+        star: 0,
     });
 
     const [putData, setPutData] = useState({
@@ -61,6 +64,9 @@ const AddModal = (props: any) => {
                 title: props.additionalMovieValue.title,
                 memo: props.additionalMovieValue.memo,
                 poster_path: props.additionalMovieValue.poster_path,
+                date: props.additionalMovieValue.date,
+                star: props.additionalMovieValue.star,
+                is_done: props.doneFlag,
             });
         }
     }, [props]);
@@ -100,6 +106,11 @@ const AddModal = (props: any) => {
                 memo: "",
             });
         }
+        if (props.doneFlag == true) {
+            props.getDone;
+        } else {
+            props.getWant;
+        }
         closeModal();
     };
 
@@ -121,6 +132,27 @@ const AddModal = (props: any) => {
         router.post(url, postData, { onFinish });
         closeModal();
     };
+
+    const changeToDone = () => {
+        props.setDoneFlag(true);
+    };
+
+    const changeToWant = () => {
+        props.setDoneFlag(false);
+    };
+
+    const onChange = (value: number) => {
+        setValue(value);
+    };
+
+    const [value, setValue] = useState(3);
+
+    useEffect(() => {
+        props.setAdditionalMovieValue({
+            ...props.additionalMovieValue,
+            star: value,
+        });
+    }, [value]);
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (
@@ -150,9 +182,18 @@ const AddModal = (props: any) => {
                             </button>
                         </div>
                         <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                            <button
+                                onClick={changeToWant}
+                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                            >
                                 Want to
-                            </h3>
+                            </button>
+                            <button
+                                onClick={changeToDone}
+                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                            >
+                                Done
+                            </button>
                         </div>
 
                         <div className="space-y-6">
@@ -215,6 +256,32 @@ const AddModal = (props: any) => {
                                     }
                                 />
                             </div>
+
+                            {props.doneFlag && (
+                                <div>
+                                    {/* <label for="date" class="leading-7 text-sm text-gray-600">Date</label> */}
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        className="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1"
+                                        onChange={(e) => {
+                                            props.setAdditionalMovieValue({
+                                                ...props.additionalMovieValue,
+                                                date: e.target.value,
+                                            });
+                                        }}
+                                    />
+                                </div>
+                            )}
+
+                            {props.doneFlag && (
+                                <div className="[&>*]:flex">
+                                    <StarRating
+                                        onChange={onChange}
+                                        value={value}
+                                    />
+                                </div>
+                            )}
 
                             <button
                                 onClick={onSubmit}

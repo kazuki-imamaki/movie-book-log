@@ -7,6 +7,7 @@ import Loading from "@/Components/Loading";
 import axios from "axios";
 
 const Index = (props: any) => {
+    console.log("index", props);
     const [movies, setMovies] = useState(props.movies);
 
     const [doneFlag, setDoneFlag] = useState(false);
@@ -29,11 +30,6 @@ const Index = (props: any) => {
         memo: "",
         poster_path: "",
     });
-
-    // useEffect(() => {
-    //     setMovies(props.movies);
-    //     console.log("effect", movies);
-    // });
 
     useEffect(() => {
         if (typeof props.additionalMovie != "undefined") {
@@ -72,21 +68,23 @@ const Index = (props: any) => {
 
     const getWant = async () => {
         await axios.get("/api/want").then((res) => {
-            console.log("res want", res.data);
             setMovies(res.data);
         });
-        console.log("want", movies);
         setDoneFlag(false);
     };
 
     const getDone = async () => {
         await axios.get("/api/done").then((res) => {
-            console.log("res done", res.data);
             setMovies(res.data);
         });
-        console.log("done", movies);
         setDoneFlag(true);
     };
+
+    useEffect(() => {
+        if (typeof props.doneFlag != "undefined") {
+            setDoneFlag(props.doneFlag);
+        }
+    }, [props.doneFlag]);
 
     return (
         <Authenticated
@@ -110,6 +108,8 @@ const Index = (props: any) => {
                     setToEditMovieValue={setToEditMovieValue}
                     doneFlag={doneFlag}
                     setDoneFlag={setDoneFlag}
+                    getDone={getDone}
+                    getWant={getWant}
                 />
 
                 <Loading loading={loading} />
@@ -128,6 +128,7 @@ const Index = (props: any) => {
                             </div>
                         </div>
                     </div>
+
                     <div className="container px-5 py-24 mx-auto">
                         <div className="flex flex-wrap -m-4">
                             {movies.map((movie: any, index: number) => (

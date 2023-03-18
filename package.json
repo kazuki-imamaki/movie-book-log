@@ -24,6 +24,7 @@
         "vite": "^3.0.2"
     },
     "dependencies": {
-        "@inertiajs/react": "^1.0.2"
+        "@inertiajs/react": "^1.0.2",
+        "react-awesome-stars-rating": "^0.13.6"
     }
 }
