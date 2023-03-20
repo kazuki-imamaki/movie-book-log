@@ -13,7 +13,7 @@
         <script src="https://kit.fontawesome.com/e89fd6b2a3.js" crossorigin="anonymous"></script>
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/app.tsx"])
+        @vite(["resources/js/app.tsx"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
