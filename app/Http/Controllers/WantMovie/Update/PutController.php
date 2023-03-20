@@ -16,14 +16,17 @@ class PutController extends Controller
      */
     public function __invoke(CreateUpdateRequest $request)
     {
-        $movie = WantMovie::where('id', $request->id())->firstOrFail();
-        $movie->title = $request->title();
-        $movie->memo = $request->memo();
-        $movie->image = $request->image();
-        $movie->image = str_replace("154", "342", $movie->image);
-        $movie->is_done = $request->is_done();
+        // dd($request);
+        $movie = WantMovie::where('id', $request->id)->firstOrFail();
+        $movie->title = $request->title;
+        $movie->memo = $request->memo;
+        $movie->poster_path = $request->poster_path;
+        $movie->poster_path = str_replace("154", "342", $movie->poster_path);
+        $movie->is_done = $request->is_done;
+        $movie->date = $request->date;
+        $movie->star = $request->star;
         // dd($movie);
         $movie->save();
-        return redirect()->route('want.movie.update.index', ['movieId' => $movie->id])->with('feedback.success', "編集しました。");
+        return redirect()->route('want.movie.index')->with('feedback.success', "編集しました。");
     }
 }

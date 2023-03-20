@@ -17,6 +17,7 @@ class AddController extends Controller
     {
         // dd($request->title, $request->poster_path);
         // dd($request);
-        return view('movie.want.add')->with("request", $request);
+
+        return view('movie.want.index')->with("request", $request)->with("showModal", true);
     }
 }
