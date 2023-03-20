@@ -58,13 +58,13 @@ const Index = (props: any) => {
         }
     }, []);
 
-    useEffect(() => {
-        setShowModal(props.showFlag);
-    }, []);
+    // useEffect(() => {
+    //     setShowModal(props.showFlag);
+    // }, []);
 
-    useEffect(() => {
-        setEditFlag(props.editFlag);
-    }, [props.editFlag]);
+    // useEffect(() => {
+    //     setEditFlag(props.editFlag);
+    // }, [props.editFlag]);
 
     const getWant = async () => {
         await axios.get("/api/want").then((res) => {
@@ -78,6 +78,28 @@ const Index = (props: any) => {
             setMovies(res.data);
         });
         setDoneFlag(true);
+    };
+
+    const getToEdit = async (e) => {
+        console.log(e);
+        await axios
+            .get("/api/edit", {
+                params: {
+                    id: e.target.id,
+                },
+            })
+            .then((res) => {
+                console.log(res.data[0]);
+                setToEditMovieValue({
+                    ...toEditMovieValue,
+                    id: res.data[0].id,
+                    title: res.data[0].title,
+                    memo: res.data[0].memo,
+                    poster_path: res.data[0].poster_path,
+                });
+            });
+        setShowModal(true);
+        setEditFlag(true);
     };
 
     useEffect(() => {
@@ -134,18 +156,20 @@ const Index = (props: any) => {
                             {movies.map((movie: any, index: number) => (
                                 <div key={index} className="p-4 w-1/5">
                                     <div className="h-full border-none border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden bg-gray-800">
-                                        <Link
+                                        {/* <Link
                                             href={route(
                                                 "want.movie.update.index",
                                                 { id: movie.id }
                                             )}
-                                        >
-                                            <img
-                                                className="lg:h-80 md:h-60 w-full object-cover object-center"
-                                                src={movie.poster_path}
-                                                alt="blog"
-                                            />
-                                        </Link>
+                                        > */}
+                                        <img
+                                            className="lg:h-80 md:h-60 w-full object-cover object-center"
+                                            src={movie.poster_path}
+                                            alt="blog"
+                                            onClick={getToEdit}
+                                            id={movie.id}
+                                        />
+                                        {/* </Link> */}
                                         <div className="p-6">
                                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                                                 MOVIE
