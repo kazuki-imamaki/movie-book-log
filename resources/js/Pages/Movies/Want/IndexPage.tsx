@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import AddModal from "@/Components/AddModal";
 import Loading from "@/Components/Loading";
 import axios from "axios";
+import StarRating from "react-awesome-stars-rating";
 
 const Index = (props: any) => {
     console.log("index", props);
@@ -186,9 +187,18 @@ const Index = (props: any) => {
                                             <p className="leading-relaxed mb-3 text-xs text-slate-300">
                                                 {movie.memo}
                                             </p>
-
-                                            <p>{movie.date}</p>
-                                            <p>{movie.star}</p>
+                                            {doneFlag && (
+                                                <div className="[&>span]:flex">
+                                                    <p className="text-xs">
+                                                        {movie.date}
+                                                    </p>
+                                                    <StarRating
+                                                        isEdit="false"
+                                                        size="15"
+                                                        value={movie.star}
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
