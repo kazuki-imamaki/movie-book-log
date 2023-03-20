@@ -89,13 +89,13 @@ const Index = (props: any) => {
                 },
             })
             .then((res) => {
-                console.log(res.data[0]);
+                // console.log(res.data);
                 setToEditMovieValue({
                     ...toEditMovieValue,
-                    id: res.data[0].id,
-                    title: res.data[0].title,
-                    memo: res.data[0].memo,
-                    poster_path: res.data[0].poster_path,
+                    id: res.data.id,
+                    title: res.data.title,
+                    memo: res.data.memo,
+                    poster_path: res.data.poster_path,
                 });
             });
         setShowModal(true);

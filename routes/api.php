@@ -32,5 +32,7 @@ Route::middleware('auth:sanctum')->get('/done', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/edit', function (Request $request) {
     $user_id = $request->user()->id;
     $id = $request->id;
-    return WantMovie::where('user_id', $user_id)->where('id', $id)->get();
+    $movie = WantMovie::where('user_id', $user_id)->where('id', $id)->first();
+    $movie->poster_path = str_replace("342", "154", $movie->poster_path);
+    return $movie;
 });
