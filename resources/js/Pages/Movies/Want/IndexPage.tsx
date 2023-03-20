@@ -29,6 +29,9 @@ const Index = (props: any) => {
         title: "",
         memo: "",
         poster_path: "",
+        is_done: 0,
+        date: "",
+        star: 0,
     });
 
     useEffect(() => {
@@ -89,13 +92,16 @@ const Index = (props: any) => {
                 },
             })
             .then((res) => {
-                // console.log(res.data);
+                console.log(res.data);
                 setToEditMovieValue({
                     ...toEditMovieValue,
                     id: res.data.id,
                     title: res.data.title,
                     memo: res.data.memo,
                     poster_path: res.data.poster_path,
+                    is_done: res.data.is_done,
+                    date: res.data.date,
+                    star: res.data.star,
                 });
             });
         setShowModal(true);

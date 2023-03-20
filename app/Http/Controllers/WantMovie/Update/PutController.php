@@ -23,6 +23,8 @@ class PutController extends Controller
         $movie->poster_path = $request->poster_path;
         $movie->poster_path = str_replace("154", "342", $movie->poster_path);
         $movie->is_done = $request->is_done;
+        $movie->date = $request->date;
+        $movie->star = $request->star;
         // dd($movie);
         $movie->save();
         return redirect()->route('want.movie.index')->with('feedback.success', "編集しました。");

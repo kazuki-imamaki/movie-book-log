@@ -16,6 +16,8 @@ const AddModal = (props: any) => {
                 title: "",
                 memo: "",
                 poster_path: "",
+                date: "",
+                star: 0,
             });
         } else {
             props.setAdditionalMovieValue({
@@ -23,6 +25,8 @@ const AddModal = (props: any) => {
                 title: "",
                 memo: "",
                 poster_path: "",
+                date: "",
+                star: 0,
             });
         }
         props.setEditFlag(false);
@@ -47,6 +51,8 @@ const AddModal = (props: any) => {
         userId: props.auth.user.id,
         is_done: 0,
         editFlag: 1,
+        date: "",
+        star: 0,
     });
 
     useEffect(() => {
@@ -57,6 +63,9 @@ const AddModal = (props: any) => {
                 title: props.toEditMovieValue.title,
                 memo: props.toEditMovieValue.memo,
                 poster_path: props.toEditMovieValue.poster_path,
+                is_done: props.doneFlag,
+                date: props.toEditMovieValue.date,
+                star: props.toEditMovieValue.star,
             });
         } else {
             setPostData({
@@ -143,6 +152,10 @@ const AddModal = (props: any) => {
 
     const onChange = (value: number) => {
         setValue(value);
+        props.setToEditMovieValue({
+            ...props.toEditMovieValue,
+            star: value,
+        });
     };
 
     const [value, setValue] = useState(3);
@@ -264,11 +277,24 @@ const AddModal = (props: any) => {
                                         type="date"
                                         name="date"
                                         className="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1"
+                                        value={
+                                            props.editFlag
+                                                ? props.toEditMovieValue.date
+                                                : props.additionalMovieValue
+                                                      .date
+                                        }
                                         onChange={(e) => {
-                                            props.setAdditionalMovieValue({
-                                                ...props.additionalMovieValue,
-                                                date: e.target.value,
-                                            });
+                                            props.editFlag
+                                                ? props.setToEditMovieValue({
+                                                      ...props.toEditMovieValue,
+                                                      date: e.target.value,
+                                                  })
+                                                : props.setAdditionalMovieValue(
+                                                      {
+                                                          ...props.additionalMovieValue,
+                                                          date: e.target.value,
+                                                      }
+                                                  );
                                         }}
                                     />
                                 </div>
