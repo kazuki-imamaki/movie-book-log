@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/want', \App\Http\Controllers\Api\GetWan
 
 Route::middleware('auth:sanctum')->get('/done', \App\Http\Controllers\Api\GetDoneController::class);
 
+Route::middleware('auth:sanctum')->post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
+
+
 Route::middleware('auth:sanctum')->get('/edit', function (Request $request) {
     $user_id = $request->user()->id;
     $id = $request->id;

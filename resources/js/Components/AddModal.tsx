@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 import StarRating from "react-awesome-stars-rating";
+import axios from "axios";
 
 const AddModal = (props: any) => {
     console.log("addModal", props);
@@ -8,20 +9,21 @@ const AddModal = (props: any) => {
 
     const closeModal = () => {
         props.setShowModal(false);
+        props.setLoading(false);
 
         if (props.editFlag) {
-            props.setToEditMovieValue({
-                ...props.toEditMovieValue,
-                id: "",
-                title: "",
-                memo: "",
-                poster_path: "",
-                date: "",
-                star: 0,
-            });
+            // props.setToEditMovieValue({
+            //     ...props.toEditMovieValue,
+            //     id: "",
+            //     title: "",
+            //     memo: "",
+            //     poster_path: "",
+            //     date: "",
+            //     star: 0,
+            // });
         } else {
-            props.setAdditionalMovieValue({
-                ...props.additionalMovieValue,
+            props.setPostData({
+                ...props.postData,
                 title: "",
                 memo: "",
                 poster_path: "",
@@ -32,94 +34,98 @@ const AddModal = (props: any) => {
         props.setEditFlag(false);
     };
 
-    const [postData, setPostData] = useState({
-        title: "",
-        memo: "",
-        poster_path: "",
-        userId: props.auth.user.id,
-        is_done: 0,
-        editFlag: 0,
-        date: "",
-        star: 0,
-    });
+    // const [postData, setPostData] = useState({
+    //     title: "",
+    //     memo: "",
+    //     poster_path: "",
+    //     userId: props.auth.user.id,
+    //     is_done: 0,
+    //     editFlag: 0,
+    //     date: "",
+    //     star: 0,
+    // });
 
-    const [putData, setPutData] = useState({
-        id: 0,
-        title: "",
-        memo: "",
-        poster_path: "",
-        userId: props.auth.user.id,
-        is_done: 0,
-        editFlag: 1,
-        date: "",
-        star: 0,
-    });
+    // const [putData, setPutData] = useState({
+    //     id: 0,
+    //     title: "",
+    //     memo: "",
+    //     poster_path: "",
+    //     userId: props.auth.user.id,
+    //     is_done: 0,
+    //     editFlag: 1,
+    //     date: "",
+    //     star: 0,
+    // });
 
-    useEffect(() => {
-        if (props.editFlag) {
-            setPutData({
-                ...putData,
-                id: props.toEditMovieValue.id,
-                title: props.toEditMovieValue.title,
-                memo: props.toEditMovieValue.memo,
-                poster_path: props.toEditMovieValue.poster_path,
-                is_done: props.doneFlag,
-                date: props.toEditMovieValue.date,
-                star: props.toEditMovieValue.star,
-            });
-        } else {
-            setPostData({
-                ...postData,
-                title: props.additionalMovieValue.title,
-                memo: props.additionalMovieValue.memo,
-                poster_path: props.additionalMovieValue.poster_path,
-                date: props.additionalMovieValue.date,
-                star: props.additionalMovieValue.star,
-                is_done: props.doneFlag,
-            });
-        }
-    }, [props]);
+    // useEffect(() => {
+    //     if (props.editFlag) {
+    //         setPutData({
+    //             ...putData,
+    //             id: props.toEditMovieValue.id,
+    //             title: props.toEditMovieValue.title,
+    //             memo: props.toEditMovieValue.memo,
+    //             poster_path: props.toEditMovieValue.poster_path,
+    //             is_done: props.doneFlag,
+    //             date: props.toEditMovieValue.date,
+    //             star: props.toEditMovieValue.star,
+    //         });
+    //     } else {
+    //         setPostData({
+    //             ...postData,
+    //             title: props.additionalMovieValue.title,
+    //             memo: props.additionalMovieValue.memo,
+    //             poster_path: props.additionalMovieValue.poster_path,
+    //             date: props.additionalMovieValue.date,
+    //             star: props.additionalMovieValue.star,
+    //             is_done: props.doneFlag,
+    //         });
+    //     }
+    // }, [props]);
 
     const onSubmit = () => {
         props.setLoading(true);
 
         if (props.editFlag) {
-            const url = route("want.movie.update.put", {
-                id: props.toEditMovieValue.id,
-            });
-            router.post(url, putData, { onFinish });
-
-            props.setAdditionalMovieValue({
-                ...props.toEditMovieValue,
-                id: 0,
-                title: "",
-                poster_path: "",
-                memo: "",
-            });
-
-            setPutData({
-                ...postData,
-                id: 0,
-                title: "",
-                poster_path: "",
-                memo: "",
-            });
+            // const url = route("want.movie.update.put", {
+            //     id: props.toEditMovieValue.id,
+            // });
+            // router.post(url, putData, { onFinish });
+            // props.setAdditionalMovieValue({
+            //     ...props.toEditMovieValue,
+            //     id: 0,
+            //     title: "",
+            //     poster_path: "",
+            //     memo: "",
+            // });
+            // setPutData({
+            //     ...postData,
+            //     id: 0,
+            //     title: "",
+            //     poster_path: "",
+            //     memo: "",
+            // });
         } else {
-            const url = route("want.movie.create");
-            router.post(url, postData, { onFinish });
+            // const url = route("want.movie.create");
+            // router.post(url, postData, { onFinish });
 
-            props.setAdditionalMovieValue({
-                ...props.additionalMovieValue,
-                title: "",
-                poster_path: "",
-                memo: "",
+            axios.post("api/postContent", props.postData).then(() => {
+                console.log("res", props.postData);
             });
+            // props.setLoading(false);
+
+            // props.setAdditionalMovieValue({
+            //     ...props.additionalMovieValue,
+            //     title: "",
+            //     poster_path: "",
+            //     memo: "",
+            // });
         }
         if (props.doneFlag == true) {
             props.getDone;
         } else {
-            props.getWant;
+            props.getWant();
         }
+        // props.setLoading(false);
         closeModal();
     };
 
@@ -129,7 +135,7 @@ const AddModal = (props: any) => {
         if (props.editFlag) {
             router.get(url, putData, { onFinish });
         } else {
-            router.get(url, postData, { onFinish });
+            router.get(url, props.postData, { onFinish });
         }
     };
 
@@ -138,7 +144,7 @@ const AddModal = (props: any) => {
         const url = route("want.movie.delete", {
             id: props.toEditMovieValue.id,
         });
-        router.post(url, postData, { onFinish });
+        router.post(url, props.postData, { onFinish });
         closeModal();
     };
 
@@ -160,12 +166,12 @@ const AddModal = (props: any) => {
 
     const [value, setValue] = useState(3);
 
-    useEffect(() => {
-        props.setAdditionalMovieValue({
-            ...props.additionalMovieValue,
-            star: value,
-        });
-    }, [value]);
+    // useEffect(() => {
+    //     props.setAdditionalMovieValue({
+    //         ...props.additionalMovieValue,
+    //         star: value,
+    //     });
+    // }, [value]);
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (
@@ -218,7 +224,7 @@ const AddModal = (props: any) => {
                                     value={
                                         props.editFlag
                                             ? props.toEditMovieValue.title
-                                            : props.additionalMovieValue.title
+                                            : props.postData.title
                                     }
                                     onChange={(e) => {
                                         props.editFlag
@@ -226,8 +232,8 @@ const AddModal = (props: any) => {
                                                   ...props.toEditMovieValue,
                                                   title: e.target.value,
                                               })
-                                            : props.setAdditionalMovieValue({
-                                                  ...props.additionalMovieValue,
+                                            : props.setPostData({
+                                                  ...props.postData,
                                                   title: e.target.value,
                                               });
                                     }}
@@ -241,8 +247,7 @@ const AddModal = (props: any) => {
                                     src={
                                         props.editFlag
                                             ? props.toEditMovieValue.poster_path
-                                            : props.additionalMovieValue
-                                                  .poster_path
+                                            : props.postData.poster_path
                                     }
                                     alt=""
                                 />
@@ -254,7 +259,7 @@ const AddModal = (props: any) => {
                                     value={
                                         props.editFlag
                                             ? props.toEditMovieValue.memo
-                                            : props.additionalMovieValue.memo
+                                            : props.postData.memo
                                     }
                                     onChange={(e) =>
                                         props.editFlag
@@ -262,8 +267,8 @@ const AddModal = (props: any) => {
                                                   ...props.toEditMovieValue,
                                                   memo: e.target.value,
                                               })
-                                            : props.setAdditionalMovieValue({
-                                                  ...props.additionalMovieValue,
+                                            : props.setPostData({
+                                                  ...props.postData,
                                                   memo: e.target.value,
                                               })
                                     }
@@ -280,8 +285,7 @@ const AddModal = (props: any) => {
                                         value={
                                             props.editFlag
                                                 ? props.toEditMovieValue.date
-                                                : props.additionalMovieValue
-                                                      .date
+                                                : props.postData.date
                                         }
                                         onChange={(e) => {
                                             props.editFlag
@@ -289,12 +293,10 @@ const AddModal = (props: any) => {
                                                       ...props.toEditMovieValue,
                                                       date: e.target.value,
                                                   })
-                                                : props.setAdditionalMovieValue(
-                                                      {
-                                                          ...props.additionalMovieValue,
-                                                          date: e.target.value,
-                                                      }
-                                                  );
+                                                : props.setPostData({
+                                                      ...props.postData,
+                                                      date: e.target.value,
+                                                  });
                                         }}
                                     />
                                 </div>

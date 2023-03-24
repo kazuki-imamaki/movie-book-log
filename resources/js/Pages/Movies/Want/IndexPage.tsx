@@ -118,7 +118,7 @@ const Index = (props: any) => {
     return (
         <Authenticated
             auth={props.auth}
-            showModal={showModal}
+            // showModal={showModal}
             setShowModal={setShowModal}
         >
             <Head title="Movie" />
