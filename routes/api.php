@@ -16,15 +16,13 @@ use App\Models\WantMovie;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/want', \App\Http\Controllers\Api\GetWantController::class);
+    Route::get('/done', \App\Http\Controllers\Api\GetDoneController::class);
+    Route::post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
+    Route::get('/search', \App\Http\Controllers\Api\SearchImageController::class);
 });
 
-Route::middleware('auth:sanctum')->get('/want', \App\Http\Controllers\Api\GetWantController::class);
-
-Route::middleware('auth:sanctum')->get('/done', \App\Http\Controllers\Api\GetDoneController::class);
-
-Route::middleware('auth:sanctum')->post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
 
 
 Route::middleware('auth:sanctum')->get('/edit', function (Request $request) {
