@@ -3,12 +3,15 @@ import AddModal from "../Components/AddModal";
 import Switch from "../Components/Switch";
 import Card from "../Components/Card";
 import Loading from "../Components/Loading";
+import ImageResults from "../Components/ImageResults";
 import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Index = (props: any) => {
-    console.log(props);
+    // console.log(props);
+
+    const [searchFlag, setSearchFlag] = useState(false);
 
     const [doneFlag, setDoneFlag] = useState(false);
 
@@ -35,6 +38,25 @@ const Index = (props: any) => {
             is_done: "",
             date: "",
             star: 0,
+        },
+    ]);
+
+    const [results, setResults] = useState([
+        {
+            adult: false,
+            backdrop_path: "",
+            genre_ids: [],
+            id: 0,
+            original_language: "",
+            original_title: "",
+            overview: "",
+            popularity: 0,
+            poster_path: "",
+            release_date: "",
+            title: "",
+            video: false,
+            vote_average: 0,
+            vote_count: 0,
         },
     ]);
 
@@ -77,6 +99,19 @@ const Index = (props: any) => {
                     setLoading={setLoading}
                     getWant={getWant}
                     getDone={getDone}
+                    searchFlag={searchFlag}
+                    setSearchFlag={setSearchFlag}
+                    results={results}
+                    setResults={setResults}
+                />
+
+                <ImageResults
+                    searchFlag={searchFlag}
+                    setSearchFlag={setSearchFlag}
+                    results={results}
+                    setResults={setResults}
+                    setPostData={setPostData}
+                    postData={postData}
                 />
 
                 <Loading loading={loading} />

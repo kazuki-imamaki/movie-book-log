@@ -130,13 +130,26 @@ const AddModal = (props: any) => {
     };
 
     const searchImages = () => {
-        props.setLoading(true);
-        const url = route("want.movie.search");
-        if (props.editFlag) {
-            router.get(url, putData, { onFinish });
-        } else {
-            router.get(url, props.postData, { onFinish });
-        }
+        console.log("search");
+        // props.setLoading(true);
+        // const url = route("want.movie.search");
+        // if (props.editFlag) {
+        //     router.get(url, putData, { onFinish });
+        // } else {
+        //     router.get(url, props.postData, { onFinish });
+        // }
+
+        props.setSearchFlag(true);
+        axios
+            .get("api/search", {
+                params: {
+                    title: props.postData.title,
+                },
+            })
+            .then((res) => {
+                console.log(res.data);
+                props.setResults(res.data);
+            });
     };
 
     const onDelete = () => {
