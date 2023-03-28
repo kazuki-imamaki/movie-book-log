@@ -1,5 +1,22 @@
+import axios from "axios";
 const Card = (props) => {
     console.log(props);
+
+    const getToEdit = (e: any) => {
+        // console.log(e);
+        axios
+            .get("/api/edit", {
+                params: {
+                    id: e.target.id,
+                },
+            })
+            .then((res) => {
+                console.log(res.data);
+                props.setPutData(res.data);
+            });
+        props.setShowModal(true);
+        props.setEditFlag(true);
+    };
     return (
         <>
             <section className="body-font text-white bg-gray-900">
@@ -14,13 +31,15 @@ const Card = (props) => {
                                                 { id: movie.id }
                                             )}
                                         > */}
-                                    <img
-                                        className="lg:h-80 md:h-60 w-full object-cover object-center"
-                                        src={content.poster_path}
-                                        alt="blog"
-                                        // onClick={getToEdit}
-                                        id={content.id}
-                                    />
+                                    <button>
+                                        <img
+                                            className="lg:h-80 md:h-60 w-full object-cover object-center"
+                                            src={content.poster_path}
+                                            alt="blog"
+                                            onClick={getToEdit}
+                                            id={content.id}
+                                        />
+                                    </button>
                                     {/* </Link> */}
                                     <div className="p-6">
                                         <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">

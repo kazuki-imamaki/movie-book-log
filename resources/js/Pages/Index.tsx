@@ -11,6 +11,8 @@ import axios from "axios";
 const Index = (props: any) => {
     // console.log(props);
 
+    const [editFlag, setEditFlag] = useState(false);
+
     const [searchFlag, setSearchFlag] = useState(false);
 
     const [doneFlag, setDoneFlag] = useState(false);
@@ -20,6 +22,18 @@ const Index = (props: any) => {
     const [loading, setLoading] = useState(false);
 
     const [postData, setPostData] = useState({
+        title: "",
+        memo: "",
+        poster_path: "",
+        userId: props.auth.user.id,
+        is_done: 0,
+        editFlag: 0,
+        date: "",
+        star: 0,
+    });
+
+    const [putData, setPutData] = useState({
+        id: 0,
         title: "",
         memo: "",
         poster_path: "",
@@ -103,6 +117,10 @@ const Index = (props: any) => {
                     setSearchFlag={setSearchFlag}
                     results={results}
                     setResults={setResults}
+                    setPutData={setPutData}
+                    putData={putData}
+                    editFlag={editFlag}
+                    setEditFlag={setEditFlag}
                 />
 
                 <ImageResults
@@ -116,7 +134,12 @@ const Index = (props: any) => {
 
                 <Loading loading={loading} />
                 <Switch setDoneFlag={setDoneFlag} setContents={setContents} />
-                <Card contents={contents} />
+                <Card
+                    contents={contents}
+                    setPutData={setPutData}
+                    setShowModal={setShowModal}
+                    setEditFlag={setEditFlag}
+                />
             </>
         </Authenticated>
     );
