@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\WantMovie;
+
 
 
 /*
@@ -21,14 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/done', \App\Http\Controllers\Api\GetDoneController::class);
     Route::post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
     Route::get('/search', \App\Http\Controllers\Api\SearchImageController::class);
-});
-
-
-
-Route::middleware('auth:sanctum')->get('/edit', function (Request $request) {
-    $user_id = $request->user()->id;
-    $id = $request->id;
-    $movie = WantMovie::where('user_id', $user_id)->where('id', $id)->first();
-    $movie->poster_path = str_replace("342", "154", $movie->poster_path);
-    return $movie;
+    Route::get('/edit', \App\Http\Controllers\Api\EditController::class);
 });
