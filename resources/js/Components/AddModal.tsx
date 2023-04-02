@@ -82,50 +82,32 @@ const AddModal = (props: any) => {
     //     }
     // }, [props]);
 
-    const onSubmit = () => {
+    const onPost = () => {
         props.setLoading(true);
 
-        if (props.editFlag) {
-            // const url = route("want.movie.update.put", {
-            //     id: props.toEditMovieValue.id,
-            // });
-            // router.post(url, putData, { onFinish });
-            // props.setAdditionalMovieValue({
-            //     ...props.toEditMovieValue,
-            //     id: 0,
-            //     title: "",
-            //     poster_path: "",
-            //     memo: "",
-            // });
-            // setPutData({
-            //     ...postData,
-            //     id: 0,
-            //     title: "",
-            //     poster_path: "",
-            //     memo: "",
-            // });
-        } else {
-            // const url = route("want.movie.create");
-            // router.post(url, postData, { onFinish });
+        axios.post("api/postContent", props.postData).then(() => {
+            console.log("res", props.postData);
+        });
 
-            axios.post("api/postContent", props.postData).then(() => {
-                console.log("res", props.postData);
-            });
-            // props.setLoading(false);
-
-            // props.setAdditionalMovieValue({
-            //     ...props.additionalMovieValue,
-            //     title: "",
-            //     poster_path: "",
-            //     memo: "",
-            // });
-        }
         if (props.doneFlag == true) {
-            props.getDone;
+            props.getDone();
         } else {
             props.getWant();
         }
-        // props.setLoading(false);
+
+        closeModal();
+    };
+
+    const onPut = () => {
+        props.setLoading(true);
+        console.log("put", props.putData);
+        axios.put("api/putContent", props.putData);
+
+        if (props.doneFlag == true) {
+            props.getDone();
+        } else {
+            props.getWant();
+        }
         closeModal();
     };
 
@@ -179,12 +161,6 @@ const AddModal = (props: any) => {
 
     const [value, setValue] = useState(3);
 
-    // useEffect(() => {
-    //     props.setAdditionalMovieValue({
-    //         ...props.additionalMovieValue,
-    //         star: value,
-    //     });
-    // }, [value]);
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (
@@ -236,13 +212,13 @@ const AddModal = (props: any) => {
                                     required
                                     value={
                                         props.editFlag
-                                            ? props.toEditMovieValue.title
+                                            ? props.putData.title
                                             : props.postData.title
                                     }
                                     onChange={(e) => {
                                         props.editFlag
-                                            ? props.setToEditMovieValue({
-                                                  ...props.toEditMovieValue,
+                                            ? props.setPutData({
+                                                  ...props.putData,
                                                   title: e.target.value,
                                               })
                                             : props.setPostData({
@@ -259,7 +235,7 @@ const AddModal = (props: any) => {
                                 <img
                                     src={
                                         props.editFlag
-                                            ? props.toEditMovieValue.poster_path
+                                            ? props.putData.poster_path
                                             : props.postData.poster_path
                                     }
                                     alt=""
@@ -271,13 +247,13 @@ const AddModal = (props: any) => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     value={
                                         props.editFlag
-                                            ? props.toEditMovieValue.memo
+                                            ? props.putData.memo
                                             : props.postData.memo
                                     }
                                     onChange={(e) =>
                                         props.editFlag
-                                            ? props.setToEditMovieValue({
-                                                  ...props.toEditMovieValue,
+                                            ? props.setPutData({
+                                                  ...props.putData,
                                                   memo: e.target.value,
                                               })
                                             : props.setPostData({
@@ -297,13 +273,13 @@ const AddModal = (props: any) => {
                                         className="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1"
                                         value={
                                             props.editFlag
-                                                ? props.toEditMovieValue.date
+                                                ? props.putData.date
                                                 : props.postData.date
                                         }
                                         onChange={(e) => {
                                             props.editFlag
-                                                ? props.setToEditMovieValue({
-                                                      ...props.toEditMovieValue,
+                                                ? props.setPutData({
+                                                      ...props.putData,
                                                       date: e.target.value,
                                                   })
                                                 : props.setPostData({
@@ -325,7 +301,7 @@ const AddModal = (props: any) => {
                             )}
 
                             <button
-                                onClick={onSubmit}
+                                onClick={props.editFlag ? onPut : onPost}
                                 type="submit"
                                 className="w-full text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                             >

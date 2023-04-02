@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
     Route::get('/search', \App\Http\Controllers\Api\SearchImageController::class);
     Route::get('/edit', \App\Http\Controllers\Api\EditController::class);
+    Route::put('/putContent', \App\Http\Controllers\Api\PutContentController::class);
 });
