@@ -75,10 +75,14 @@ const AddModal = (props: any) => {
 
     const onDelete = () => {
         props.setLoading(true);
-        const url = route("want.movie.delete", {
-            id: props.toEditMovieValue.id,
-        });
-        router.post(url, props.postData, { onFinish });
+        axios.post("api/delete", props.putData);
+
+        if (props.doneFlag == true) {
+            props.getDone();
+        } else {
+            props.getWant();
+        }
+
         closeModal();
     };
 

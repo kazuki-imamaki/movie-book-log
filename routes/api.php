@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/search', \App\Http\Controllers\Api\SearchImageController::class);
     Route::get('/edit', \App\Http\Controllers\Api\EditController::class);
     Route::put('/putContent', \App\Http\Controllers\Api\PutContentController::class);
+    Route::post('/delete', \App\Http\Controllers\Api\DeleteController::class);
 });
