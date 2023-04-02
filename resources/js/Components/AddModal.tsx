@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 import StarRating from "react-awesome-stars-rating";
 import axios from "axios";
@@ -12,7 +12,7 @@ const AddModal = (props: any) => {
 
         if (props.editFlag) {
             props.setPutData({
-                ...props.toEditMovieValue,
+                ...props.putData,
                 id: "",
                 title: "",
                 memo: "",
@@ -96,14 +96,17 @@ const AddModal = (props: any) => {
 
     const onChange = (value: number) => {
         setValue(value);
-        props.setToEditMovieValue({
-            ...props.toEditMovieValue,
+        props.setPutData({
+            ...props.putData,
             star: value,
         });
     };
 
     const [value, setValue] = useState(3);
 
+    useEffect(() => {
+        props.setPutData({ ...props.putData, is_done: props.doneFlag });
+    }, [props.doneFlag]);
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (

@@ -102,6 +102,7 @@ const Index = (props: any) => {
             <>
                 <AddModal
                     doneFlag={doneFlag}
+                    setDoneFlag={setDoneFlag}
                     showFlag={showModal}
                     setShowModal={setShowModal}
                     auth={props.auth}
