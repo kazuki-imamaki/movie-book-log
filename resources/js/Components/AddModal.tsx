@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { router } from "@inertiajs/react";
 import StarRating from "react-awesome-stars-rating";
 import axios from "axios";
 
 const AddModal = (props: any) => {
-    console.log("addModal", props);
     const onFinish = () => props.setLoading(false);
 
     const closeModal = () => {
@@ -34,60 +33,10 @@ const AddModal = (props: any) => {
         props.setEditFlag(false);
     };
 
-    // const [postData, setPostData] = useState({
-    //     title: "",
-    //     memo: "",
-    //     poster_path: "",
-    //     userId: props.auth.user.id,
-    //     is_done: 0,
-    //     editFlag: 0,
-    //     date: "",
-    //     star: 0,
-    // });
-
-    // const [putData, setPutData] = useState({
-    //     id: 0,
-    //     title: "",
-    //     memo: "",
-    //     poster_path: "",
-    //     userId: props.auth.user.id,
-    //     is_done: 0,
-    //     editFlag: 1,
-    //     date: "",
-    //     star: 0,
-    // });
-
-    // useEffect(() => {
-    //     if (props.editFlag) {
-    //         setPutData({
-    //             ...putData,
-    //             id: props.toEditMovieValue.id,
-    //             title: props.toEditMovieValue.title,
-    //             memo: props.toEditMovieValue.memo,
-    //             poster_path: props.toEditMovieValue.poster_path,
-    //             is_done: props.doneFlag,
-    //             date: props.toEditMovieValue.date,
-    //             star: props.toEditMovieValue.star,
-    //         });
-    //     } else {
-    //         setPostData({
-    //             ...postData,
-    //             title: props.additionalMovieValue.title,
-    //             memo: props.additionalMovieValue.memo,
-    //             poster_path: props.additionalMovieValue.poster_path,
-    //             date: props.additionalMovieValue.date,
-    //             star: props.additionalMovieValue.star,
-    //             is_done: props.doneFlag,
-    //         });
-    //     }
-    // }, [props]);
-
     const onPost = () => {
         props.setLoading(true);
 
-        axios.post("api/postContent", props.postData).then(() => {
-            console.log("res", props.postData);
-        });
+        axios.post("api/postContent", props.postData);
 
         if (props.doneFlag == true) {
             props.getDone();
@@ -100,7 +49,7 @@ const AddModal = (props: any) => {
 
     const onPut = () => {
         props.setLoading(true);
-        console.log("put", props.putData);
+
         axios.put("api/putContent", props.putData);
 
         if (props.doneFlag == true) {
@@ -112,15 +61,6 @@ const AddModal = (props: any) => {
     };
 
     const searchImages = () => {
-        console.log("search");
-        // props.setLoading(true);
-        // const url = route("want.movie.search");
-        // if (props.editFlag) {
-        //     router.get(url, putData, { onFinish });
-        // } else {
-        //     router.get(url, props.postData, { onFinish });
-        // }
-
         props.setSearchFlag(true);
         axios
             .get("api/search", {
@@ -129,7 +69,6 @@ const AddModal = (props: any) => {
                 },
             })
             .then((res) => {
-                console.log(res.data);
                 props.setResults(res.data);
             });
     };
@@ -266,7 +205,6 @@ const AddModal = (props: any) => {
 
                             {props.doneFlag && (
                                 <div>
-                                    {/* <label for="date" class="leading-7 text-sm text-gray-600">Date</label> */}
                                     <input
                                         type="date"
                                         name="date"

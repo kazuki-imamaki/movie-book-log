@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Index = (props: any) => {
-    // console.log(props);
-
     const [editFlag, setEditFlag] = useState(false);
 
     const [searchFlag, setSearchFlag] = useState(false);
@@ -76,7 +74,6 @@ const Index = (props: any) => {
 
     useEffect(() => {
         axios.get("/api/want").then((res) => {
-            console.log(res.data);
             setContents(res.data);
         });
     }, []);
