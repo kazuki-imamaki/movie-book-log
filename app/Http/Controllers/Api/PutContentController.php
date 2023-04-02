@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\WantMovie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-
 
 class PutContentController extends Controller
 {
@@ -18,7 +16,6 @@ class PutContentController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Log::debug("logMsg", [$request->id]);
         $movie = WantMovie::where('id', $request->id)->firstOrFail();
         $movie->title = $request->title;
         $movie->memo = $request->memo;
