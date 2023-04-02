@@ -12,15 +12,15 @@ const AddModal = (props: any) => {
         props.setLoading(false);
 
         if (props.editFlag) {
-            // props.setToEditMovieValue({
-            //     ...props.toEditMovieValue,
-            //     id: "",
-            //     title: "",
-            //     memo: "",
-            //     poster_path: "",
-            //     date: "",
-            //     star: 0,
-            // });
+            props.setPutData({
+                ...props.toEditMovieValue,
+                id: "",
+                title: "",
+                memo: "",
+                poster_path: "",
+                date: "",
+                star: 0,
+            });
         } else {
             props.setPostData({
                 ...props.postData,
