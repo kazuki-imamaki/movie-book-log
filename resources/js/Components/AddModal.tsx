@@ -36,28 +36,29 @@ const AddModal = (props: any) => {
     const onPost = () => {
         props.setLoading(true);
 
-        axios.post("api/postContent", props.postData);
-
-        if (props.doneFlag == true) {
-            props.getDone();
-        } else {
-            props.getWant();
-        }
-
-        closeModal();
+        axios.post("api/postContent", props.postData).then(() => {
+            if (props.doneFlag == true) {
+                props.getDone();
+            } else {
+                props.getWant();
+            }
+            closeModal();
+            props.setLoading(false);
+        });
     };
 
     const onPut = () => {
         props.setLoading(true);
 
-        axios.put("api/putContent", props.putData);
-
-        if (props.doneFlag == true) {
-            props.getDone();
-        } else {
-            props.getWant();
-        }
-        closeModal();
+        axios.put("api/putContent", props.putData).then(() => {
+            if (props.doneFlag == true) {
+                props.getDone();
+            } else {
+                props.getWant();
+            }
+            closeModal();
+            props.setLoading(false);
+        });
     };
 
     const searchImages = () => {
