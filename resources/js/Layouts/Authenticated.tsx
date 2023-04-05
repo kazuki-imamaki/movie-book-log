@@ -35,15 +35,15 @@ export default function Authenticated({
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href={route("want.movie.index")}>
+                                <Link href={route("root")}>
                                     <ApplicationLogo className="block h-9 w-auto text-gray-500" />
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("want.movie.index")}
-                                    active={route().current("want.movie.index")}
+                                    href={route("root")}
+                                    active={route().current("root")}
                                 >
                                     Movie
                                 </NavLink>
