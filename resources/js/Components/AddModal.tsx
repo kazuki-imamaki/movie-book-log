@@ -135,19 +135,33 @@ const AddModal = (props: any) => {
                         </button>
                     </div>
                     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <button
+                        <div className="flex items-start justify-between p-4  rounded-t dark:border-gray-600">
+                            <div
                                 onClick={changeToWant}
-                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                                className="text-xl font-semibold text-gray-900 dark:text-white cursor-pointer "
                             >
-                                Want to
-                            </button>
-                            <button
+                                <p
+                                    className={
+                                        props.doneFlag ||
+                                        "border-b-2 border-indigo-500"
+                                    }
+                                >
+                                    Want to
+                                </p>
+                            </div>
+                            <div
                                 onClick={changeToDone}
-                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                                className="text-xl font-semibold text-gray-900 dark:text-white cursor-pointer"
                             >
-                                Done
-                            </button>
+                                <p
+                                    className={
+                                        props.doneFlag &&
+                                        "border-b-2 border-indigo-500"
+                                    }
+                                >
+                                    Done
+                                </p>
+                            </div>
                         </div>
 
                         <div className="space-y-6">
