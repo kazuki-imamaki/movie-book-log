@@ -75,15 +75,22 @@ const AddModal = (props: any) => {
 
     const onDelete = () => {
         props.setLoading(true);
-        axios.post("api/delete", props.putData);
+        axios
+            .post("api/delete", props.putData)
+            .then(() => {
+                if (props.doneFlag == true) {
+                    props.getDone();
+                } else {
+                    props.getWant();
+                }
 
-        if (props.doneFlag == true) {
-            props.getDone();
-        } else {
-            props.getWant();
-        }
-
-        closeModal();
+                closeModal();
+                props.setLoading(false);
+            })
+            .catch((error) => {
+                console.error(error);
+                props.setLoading(false);
+            });
     };
 
     const changeToDone = () => {
