@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // want_to
-    Route::get('/', \App\Http\Controllers\IndexController::class);
+    Route::get('/', \App\Http\Controllers\IndexController::class)->name('root');
 
     Route::get('/movies/want_to', \App\Http\Controllers\WantMovie\IndexController::class)
         ->name('want.movie.index');
