@@ -61,6 +61,7 @@ const AddModal = (props: any) => {
     };
 
     const searchImages = () => {
+        props.setLoading(true);
         props.setSearchFlag(true);
         axios
             .get("api/search", {
@@ -70,6 +71,7 @@ const AddModal = (props: any) => {
             })
             .then((res) => {
                 props.setResults(res.data);
+                props.setLoading(false);
             });
     };
 
