@@ -137,6 +137,7 @@ const Index = (props: any) => {
                     setPutData={setPutData}
                     setShowModal={setShowModal}
                     setEditFlag={setEditFlag}
+                    doneFlag={doneFlag}
                 />
             </>
         </Authenticated>

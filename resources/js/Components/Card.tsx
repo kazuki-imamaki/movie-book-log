@@ -1,4 +1,6 @@
 import axios from "axios";
+import StarRating from "react-awesome-stars-rating";
+
 const Card = (props) => {
     console.log(props);
 
@@ -51,7 +53,7 @@ const Card = (props) => {
                                         <p className="leading-relaxed mb-3 text-xs text-slate-300">
                                             {content.memo}
                                         </p>
-                                        {/* {doneFlag && (
+                                        {props.doneFlag && (
                                             <div className="[&>span]:flex">
                                                 <p className="text-xs">
                                                     {content.date}
@@ -62,7 +64,7 @@ const Card = (props) => {
                                                     value={content.star}
                                                 />
                                             </div>
-                                        )} */}
+                                        )}
                                     </div>
                                 </div>
                             </div>
