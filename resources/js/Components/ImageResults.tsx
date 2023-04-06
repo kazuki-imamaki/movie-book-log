@@ -3,11 +3,7 @@ import { Head } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 
 const ImageResults = (props: any) => {
-    console.log("result", props);
-
     const getImage = (e: any) => {
-        console.log("result", props.results[e.target.id]);
-        console.log("postData", props.postData);
         props.setPostData({
             ...props.postData,
             title: props.results[e.target.id].title,

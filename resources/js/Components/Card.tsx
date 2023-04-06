@@ -2,10 +2,7 @@ import axios from "axios";
 import StarRating from "react-awesome-stars-rating";
 
 const Card = (props) => {
-    console.log(props);
-
     const getToEdit = (e: any) => {
-        // console.log(e);
         axios
             .get("/api/edit", {
                 params: {
@@ -13,7 +10,6 @@ const Card = (props) => {
                 },
             })
             .then((res) => {
-                console.log(res.data);
                 props.setPutData(res.data);
             });
         props.setShowModal(true);
