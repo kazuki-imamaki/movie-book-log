@@ -131,7 +131,11 @@ const Index = (props: any) => {
                 />
 
                 <Loading loading={loading} />
-                <Switch setDoneFlag={setDoneFlag} setContents={setContents} />
+                <Switch
+                    setDoneFlag={setDoneFlag}
+                    doneFlag={doneFlag}
+                    setContents={setContents}
+                />
                 <Card
                     contents={contents}
                     setPutData={setPutData}
