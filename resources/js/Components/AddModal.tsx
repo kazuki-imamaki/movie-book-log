@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
 import StarRating from "react-awesome-stars-rating";
+import axios from "axios";
 
 const AddModal = (props: any) => {
-    console.log("addModal", props);
     const onFinish = () => props.setLoading(false);
 
     const closeModal = () => {
         props.setShowModal(false);
+        props.setLoading(false);
 
         if (props.editFlag) {
-            props.setToEditMovieValue({
-                ...props.toEditMovieValue,
+            props.setPutData({
+                ...props.putData,
                 id: "",
                 title: "",
                 memo: "",
@@ -20,8 +21,8 @@ const AddModal = (props: any) => {
                 star: 0,
             });
         } else {
-            props.setAdditionalMovieValue({
-                ...props.additionalMovieValue,
+            props.setPostData({
+                ...props.postData,
                 title: "",
                 memo: "",
                 poster_path: "",
@@ -32,114 +33,67 @@ const AddModal = (props: any) => {
         props.setEditFlag(false);
     };
 
-    const [postData, setPostData] = useState({
-        title: "",
-        memo: "",
-        poster_path: "",
-        userId: props.auth.user.id,
-        is_done: 0,
-        editFlag: 0,
-        date: "",
-        star: 0,
-    });
-
-    const [putData, setPutData] = useState({
-        id: 0,
-        title: "",
-        memo: "",
-        poster_path: "",
-        userId: props.auth.user.id,
-        is_done: 0,
-        editFlag: 1,
-        date: "",
-        star: 0,
-    });
-
-    useEffect(() => {
-        if (props.editFlag) {
-            setPutData({
-                ...putData,
-                id: props.toEditMovieValue.id,
-                title: props.toEditMovieValue.title,
-                memo: props.toEditMovieValue.memo,
-                poster_path: props.toEditMovieValue.poster_path,
-                is_done: props.doneFlag,
-                date: props.toEditMovieValue.date,
-                star: props.toEditMovieValue.star,
-            });
-        } else {
-            setPostData({
-                ...postData,
-                title: props.additionalMovieValue.title,
-                memo: props.additionalMovieValue.memo,
-                poster_path: props.additionalMovieValue.poster_path,
-                date: props.additionalMovieValue.date,
-                star: props.additionalMovieValue.star,
-                is_done: props.doneFlag,
-            });
-        }
-    }, [props]);
-
-    const onSubmit = () => {
+    const onPost = () => {
         props.setLoading(true);
 
-        if (props.editFlag) {
-            const url = route("want.movie.update.put", {
-                id: props.toEditMovieValue.id,
-            });
-            router.post(url, putData, { onFinish });
+        axios.post("api/postContent", props.postData).then(() => {
+            if (props.doneFlag == true) {
+                props.getDone();
+            } else {
+                props.getWant();
+            }
+            closeModal();
+            props.setLoading(false);
+        });
+    };
 
-            props.setAdditionalMovieValue({
-                ...props.toEditMovieValue,
-                id: 0,
-                title: "",
-                poster_path: "",
-                memo: "",
-            });
+    const onPut = () => {
+        props.setLoading(true);
 
-            setPutData({
-                ...postData,
-                id: 0,
-                title: "",
-                poster_path: "",
-                memo: "",
-            });
-        } else {
-            const url = route("want.movie.create");
-            router.post(url, postData, { onFinish });
-
-            props.setAdditionalMovieValue({
-                ...props.additionalMovieValue,
-                title: "",
-                poster_path: "",
-                memo: "",
-            });
-        }
-        if (props.doneFlag == true) {
-            props.getDone;
-        } else {
-            props.getWant;
-        }
-        closeModal();
+        axios.put("api/putContent", props.putData).then(() => {
+            if (props.doneFlag == true) {
+                props.getDone();
+            } else {
+                props.getWant();
+            }
+            closeModal();
+            props.setLoading(false);
+        });
     };
 
     const searchImages = () => {
         props.setLoading(true);
-        const url = route("want.movie.search");
-        if (props.editFlag) {
-            router.get(url, putData, { onFinish });
-        } else {
-            router.get(url, postData, { onFinish });
-        }
+        props.setSearchFlag(true);
+        axios
+            .get("api/search", {
+                params: {
+                    title: props.postData.title,
+                },
+            })
+            .then((res) => {
+                props.setResults(res.data);
+                props.setLoading(false);
+            });
     };
 
     const onDelete = () => {
         props.setLoading(true);
-        const url = route("want.movie.delete", {
-            id: props.toEditMovieValue.id,
-        });
-        router.post(url, postData, { onFinish });
-        closeModal();
+        axios
+            .post("api/delete", props.putData)
+            .then(() => {
+                if (props.doneFlag == true) {
+                    props.getDone();
+                } else {
+                    props.getWant();
+                }
+
+                closeModal();
+                props.setLoading(false);
+            })
+            .catch((error) => {
+                console.error(error);
+                props.setLoading(false);
+            });
     };
 
     const changeToDone = () => {
@@ -152,8 +106,8 @@ const AddModal = (props: any) => {
 
     const onChange = (value: number) => {
         setValue(value);
-        props.setToEditMovieValue({
-            ...props.toEditMovieValue,
+        props.setPutData({
+            ...props.putData,
             star: value,
         });
     };
@@ -161,11 +115,8 @@ const AddModal = (props: any) => {
     const [value, setValue] = useState(3);
 
     useEffect(() => {
-        props.setAdditionalMovieValue({
-            ...props.additionalMovieValue,
-            star: value,
-        });
-    }, [value]);
+        props.setPutData({ ...props.putData, is_done: props.doneFlag });
+    }, [props.doneFlag]);
     return (
         <>
             {props.showFlag || props.passedShowFlag ? (
@@ -194,19 +145,33 @@ const AddModal = (props: any) => {
                         </button>
                     </div>
                     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <button
+                        <div className="flex items-start justify-between p-4  rounded-t dark:border-gray-600">
+                            <div
                                 onClick={changeToWant}
-                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                                className="text-xl font-semibold text-gray-900 dark:text-white cursor-pointer "
                             >
-                                Want to
-                            </button>
-                            <button
+                                <p
+                                    className={
+                                        props.doneFlag ||
+                                        "border-b-2 border-indigo-500"
+                                    }
+                                >
+                                    Want to
+                                </p>
+                            </div>
+                            <div
                                 onClick={changeToDone}
-                                className="text-xl font-semibold text-gray-900 dark:text-white"
+                                className="text-xl font-semibold text-gray-900 dark:text-white cursor-pointer"
                             >
-                                Done
-                            </button>
+                                <p
+                                    className={
+                                        props.doneFlag &&
+                                        "border-b-2 border-indigo-500"
+                                    }
+                                >
+                                    Done
+                                </p>
+                            </div>
                         </div>
 
                         <div className="space-y-6">
@@ -217,17 +182,17 @@ const AddModal = (props: any) => {
                                     required
                                     value={
                                         props.editFlag
-                                            ? props.toEditMovieValue.title
-                                            : props.additionalMovieValue.title
+                                            ? props.putData.title
+                                            : props.postData.title
                                     }
                                     onChange={(e) => {
                                         props.editFlag
-                                            ? props.setToEditMovieValue({
-                                                  ...props.toEditMovieValue,
+                                            ? props.setPutData({
+                                                  ...props.putData,
                                                   title: e.target.value,
                                               })
-                                            : props.setAdditionalMovieValue({
-                                                  ...props.additionalMovieValue,
+                                            : props.setPostData({
+                                                  ...props.postData,
                                                   title: e.target.value,
                                               });
                                     }}
@@ -240,9 +205,8 @@ const AddModal = (props: any) => {
                                 <img
                                     src={
                                         props.editFlag
-                                            ? props.toEditMovieValue.poster_path
-                                            : props.additionalMovieValue
-                                                  .poster_path
+                                            ? props.putData.poster_path
+                                            : props.postData.poster_path
                                     }
                                     alt=""
                                 />
@@ -253,17 +217,17 @@ const AddModal = (props: any) => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     value={
                                         props.editFlag
-                                            ? props.toEditMovieValue.memo
-                                            : props.additionalMovieValue.memo
+                                            ? props.putData.memo
+                                            : props.postData.memo
                                     }
                                     onChange={(e) =>
                                         props.editFlag
-                                            ? props.setToEditMovieValue({
-                                                  ...props.toEditMovieValue,
+                                            ? props.setPutData({
+                                                  ...props.putData,
                                                   memo: e.target.value,
                                               })
-                                            : props.setAdditionalMovieValue({
-                                                  ...props.additionalMovieValue,
+                                            : props.setPostData({
+                                                  ...props.postData,
                                                   memo: e.target.value,
                                               })
                                     }
@@ -272,29 +236,25 @@ const AddModal = (props: any) => {
 
                             {props.doneFlag && (
                                 <div>
-                                    {/* <label for="date" class="leading-7 text-sm text-gray-600">Date</label> */}
                                     <input
                                         type="date"
                                         name="date"
                                         className="mt-3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mr-1"
                                         value={
                                             props.editFlag
-                                                ? props.toEditMovieValue.date
-                                                : props.additionalMovieValue
-                                                      .date
+                                                ? props.putData.date
+                                                : props.postData.date
                                         }
                                         onChange={(e) => {
                                             props.editFlag
-                                                ? props.setToEditMovieValue({
-                                                      ...props.toEditMovieValue,
+                                                ? props.setPutData({
+                                                      ...props.putData,
                                                       date: e.target.value,
                                                   })
-                                                : props.setAdditionalMovieValue(
-                                                      {
-                                                          ...props.additionalMovieValue,
-                                                          date: e.target.value,
-                                                      }
-                                                  );
+                                                : props.setPostData({
+                                                      ...props.postData,
+                                                      date: e.target.value,
+                                                  });
                                         }}
                                     />
                                 </div>
@@ -310,7 +270,7 @@ const AddModal = (props: any) => {
                             )}
 
                             <button
-                                onClick={onSubmit}
+                                onClick={props.editFlag ? onPut : onPost}
                                 type="submit"
                                 className="w-full text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                             >

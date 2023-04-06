@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\WantMovie\Add;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\WantMovie;
 
-class AddController extends Controller
+class DeleteController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,9 +16,8 @@ class AddController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // dd($request->title, $request->poster_path);
-        // dd($request);
-
-        return view('movie.want.index')->with("request", $request)->with("showModal", true);
+        $movieId = (int) $request->id;
+        $wantMovie = WantMovie::where('id', $movieId)->firstOrFail();
+        $wantMovie->delete();
     }
 }

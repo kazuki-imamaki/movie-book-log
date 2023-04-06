@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\WantMovie;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,24 +16,12 @@ use App\Models\WantMovie;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:sanctum')->get('/want', function (Request $request) {
-    $user_id = $request->user()->id;
-    return WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
-});
-
-Route::middleware('auth:sanctum')->get('/done', function (Request $request) {
-    $user_id = $request->user()->id;
-    return WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('updated_at', 'desc')->get();
-});
-
-Route::middleware('auth:sanctum')->get('/edit', function (Request $request) {
-    $user_id = $request->user()->id;
-    $id = $request->id;
-    $movie = WantMovie::where('user_id', $user_id)->where('id', $id)->first();
-    $movie->poster_path = str_replace("342", "154", $movie->poster_path);
-    return $movie;
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/want', \App\Http\Controllers\Api\GetWantController::class);
+    Route::get('/done', \App\Http\Controllers\Api\GetDoneController::class);
+    Route::post('/postContent', \App\Http\Controllers\Api\PostContentController::class);
+    Route::get('/search', \App\Http\Controllers\Api\SearchImageController::class);
+    Route::get('/edit', \App\Http\Controllers\Api\EditController::class);
+    Route::put('/putContent', \App\Http\Controllers\Api\PutContentController::class);
+    Route::post('/delete', \App\Http\Controllers\Api\DeleteController::class);
 });

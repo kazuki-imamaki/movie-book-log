@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\WantMovie\Update;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WantMovie\CreateUpdateRequest;
 use App\Models\WantMovie;
+use Illuminate\Http\Request;
 
-class PutController extends Controller
+class PutContentController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -14,9 +14,8 @@ class PutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(CreateUpdateRequest $request)
+    public function __invoke(Request $request)
     {
-        // dd($request);
         $movie = WantMovie::where('id', $request->id)->firstOrFail();
         $movie->title = $request->title;
         $movie->memo = $request->memo;
@@ -25,8 +24,6 @@ class PutController extends Controller
         $movie->is_done = $request->is_done;
         $movie->date = $request->date;
         $movie->star = $request->star;
-        // dd($movie);
         $movie->save();
-        return redirect()->route('want.movie.index')->with('feedback.success', "編集しました。");
     }
 }

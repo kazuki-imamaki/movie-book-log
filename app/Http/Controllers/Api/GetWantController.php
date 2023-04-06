@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\DoneMovie\Add;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\WantMovie;
 
-class AddController extends Controller
+class GetWantController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,6 +16,7 @@ class AddController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('movie.done.add')->with('request', $request);
+        $user_id = $request->user()->id;
+        return WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
     }
 }

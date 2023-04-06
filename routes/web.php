@@ -35,35 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // want_to
-    Route::get('/', \App\Http\Controllers\WantMovie\IndexController::class);
-    Route::get('/movies/want_to', \App\Http\Controllers\WantMovie\IndexController::class)
-        ->name('want.movie.index');
-    Route::get('/movies/want_to/add', \App\Http\Controllers\WantMovie\Add\AddController::class)
-        ->name('want.movie.add');
-    Route::post('/movies/want_to/add', \App\Http\Controllers\WantMovie\Add\CreateController::class)
-        ->name('want.movie.create');
-    Route::get('/movies/want_to/record/{movieId}', \App\Http\Controllers\WantMovie\Update\IndexController::class)
-        ->name('want.movie.update.index');
-    Route::post('/movies/want_to/record/{movieId}', \App\Http\Controllers\WantMovie\Update\PutController::class)
-        ->name('want.movie.update.put');
-    Route::post('/movies/delete/{movieId}', \App\Http\Controllers\WantMovie\DeleteController::class)
-        ->name('want.movie.delete');
-
-    // done
-    Route::get('/movies/done', \App\Http\Controllers\DoneMovie\IndexController::class)
-        ->name('done.movie.index');
-    Route::get('movies/done/add', \App\Http\Controllers\DoneMovie\Add\AddController::class)
-        ->name('done.movie.add');
-    Route::post('/movies/done/add', \App\Http\Controllers\DoneMovie\Add\CreateController::class)
-        ->name('done.movie.create');
-    Route::get('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\IndexController::class)
-        ->name('done.movie.update.index');
-    Route::post('/movies/done/record/{movieId}', \App\Http\Controllers\DoneMovie\Update\PutController::class)
-        ->name('done.movie.update.put');
-
-
-    Route::get('movies/search', \App\Http\Controllers\WantMovie\SearchImageController::class)
-        ->name('want.movie.search');
+    Route::get('/', \App\Http\Controllers\IndexController::class)->name('root');
 });
 
 require __DIR__ . '/auth.php';
