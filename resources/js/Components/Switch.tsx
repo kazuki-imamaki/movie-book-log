@@ -15,20 +15,6 @@ const Switch = (props) => {
     };
     return (
         <>
-            {/* <div className="container flex justify-center flex-wrap items-center mx-auto">
-                <div
-                    className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                    id="navbar-sticky"
-                >
-                    <div>
-                        <button onClick={getWant}>Want to</button>
-                    </div>
-                    <div>
-                        <button onClick={getDone}>Done</button>
-                    </div>
-                </div>
-            </div> */}
-
             <div className="border-b border-gray-500 dark:border-gray-700 flex justify-center bg-gray-900">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
