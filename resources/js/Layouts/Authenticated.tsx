@@ -45,7 +45,7 @@ export default function Authenticated({
                                     href={route("root")}
                                     active={route().current("root")}
                                 >
-                                    Movie
+                                    映画
                                 </NavLink>
                             </div>
                         </div>
