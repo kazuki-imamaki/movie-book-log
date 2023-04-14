@@ -3,13 +3,12 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\WantMovie;
 
-class WantMovieTest extends TestCase
+class DoneMovieTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,16 +17,16 @@ class WantMovieTest extends TestCase
      *
      * @return void
      */
-    public function test_Want映画情報を取得する()
+    public function test_Done映画情報を取得する()
     {
         $user = User::factory()->create();
 
         WantMovie::factory()->create([
             'user_id' => $user->id,
-            'is_done' => 0
+            'is_done' => 1
         ]);
 
-        $response = $this->actingAs($user)->get("/api/want");
+        $response = $this->actingAs($user)->get("/api/done");
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -35,7 +34,7 @@ class WantMovieTest extends TestCase
             ->assertJsonCount(1)
             ->assertJsonFragment([
                 'user_id' => $user->id,
-                'is_done' => 0
+                'is_done' => 1
             ]);
     }
 
@@ -44,7 +43,7 @@ class WantMovieTest extends TestCase
      *
      * @return void
      */
-    public function test_Want映画情報取得時にログイン済みであること()
+    public function test_Done映画情報取得時にログイン済みであること()
     {
         $response = $this->get('/api/want');
 
