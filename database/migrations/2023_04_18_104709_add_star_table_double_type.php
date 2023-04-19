@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('want_movies', function (Blueprint $table) {
-            $table->double('star', 2, 1);
+            $table->double('star', 2, 1)->nullable();
         });
     }
 
