@@ -30,6 +30,7 @@ const AddModal = (props: any) => {
                 star: 0,
             });
         }
+        setValue(0);
         props.setEditFlag(false);
     };
 
@@ -106,16 +107,27 @@ const AddModal = (props: any) => {
 
     const onChange = (value: number) => {
         setValue(value);
-        props.setPutData({
-            ...props.putData,
-            star: value,
-        });
+        if (props.editFlag) {
+            props.setPutData({
+                ...props.putData,
+                star: value,
+            });
+        } else {
+            props.setPostData({
+                ...props.postData,
+                star: value,
+            });
+        }
     };
 
-    const [value, setValue] = useState(3);
+    const [value, setValue] = useState(0);
 
     useEffect(() => {
-        props.setPutData({ ...props.putData, is_done: props.doneFlag });
+        if (props.editFlag) {
+            props.setPutData({ ...props.putData, is_done: props.doneFlag });
+        } else {
+            props.setPostData({ ...props.postData, is_done: props.doneFlag });
+        }
     }, [props.doneFlag]);
     return (
         <>
