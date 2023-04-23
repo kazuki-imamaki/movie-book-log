@@ -5,6 +5,7 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+
 class ExampleTest extends TestCase
 {
     /**
@@ -16,6 +17,8 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
+        $response->assertRedirect('/login');
+        $response = $this->followRedirects($response);
         $response->assertStatus(200);
     }
 }
