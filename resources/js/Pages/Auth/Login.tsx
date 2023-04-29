@@ -55,7 +55,7 @@ export default function Login({ status, canResetPassword }: Props) {
             <div className="text-right">
                 <Link
                     href={route("register")}
-                    className="underline mb-2 text-sm text-gray-600 hover:text-gray-900"
+                    className="underline mb-2 text-sm text-white hover:text-gray-400"
                 >
                     新規登録はこちら
                 </Link>
@@ -97,7 +97,7 @@ export default function Login({ status, canResetPassword }: Props) {
                             handleChange={onHandleChange}
                         />
 
-                        <span className="ml-2 text-sm text-gray-600">
+                        <span className="ml-2 text-sm text-white hover:text-gray-400">
                             ログイン情報を記憶する
                         </span>
                     </label>
@@ -107,14 +107,14 @@ export default function Login({ status, canResetPassword }: Props) {
                     {canResetPassword && (
                         <Link
                             href={route("password.request")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900"
+                            className="underline text-sm text-white hover:text-gray-400"
                         >
                             パスワードを忘れた方はこちら
                         </Link>
                     )}
 
                     <Button
-                        className="ml-4 bg-gray-900"
+                        className="ml-4 bg-indigo-900"
                         processing={processing}
                     >
                         ログイン

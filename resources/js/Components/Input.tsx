@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface InputProps {
     type: string;
@@ -13,7 +13,7 @@ interface InputProps {
 }
 
 export default function Input({
-    type = 'text',
+    type = "text",
     name,
     value,
     max,
@@ -39,7 +39,7 @@ export default function Input({
                 value={value}
                 max={max}
                 className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                    `bg-gray-900 text-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm` +
                     className
                 }
                 ref={input}

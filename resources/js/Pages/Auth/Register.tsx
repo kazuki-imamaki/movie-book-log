@@ -104,13 +104,13 @@ export default function Register() {
                 <div className="flex items-center justify-end mt-4">
                     <Link
                         href={route("login")}
-                        className="underline text-sm text-gray-600 hover:text-gray-900"
+                        className="underline text-sm text-white hover:text-gray-400"
                     >
                         ログインはこちら
                     </Link>
 
                     <Button
-                        className="ml-4 bg-gray-900"
+                        className="ml-4 bg-indigo-900"
                         processing={processing}
                     >
                         新規登録する
