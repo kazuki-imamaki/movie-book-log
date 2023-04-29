@@ -20,7 +20,7 @@ export default function VerifyEmail({ status }: Props) {
         <Guest>
             <Head title="メールアドレス確認" />
 
-            <div className="mb-4 text-sm text-gray-600">
+            <div className="mb-4 text-sm text-gray-100">
                 登録ありがとうございます！届いたメールアドレスを確認してください。
                 メールが届かない場合、下のボタンからメールを再送信してください。
             </div>
@@ -33,7 +33,7 @@ export default function VerifyEmail({ status }: Props) {
 
             <form onSubmit={submit}>
                 <div className="mt-4 flex items-center justify-between">
-                    <Button className="bg-gray-900" processing={processing}>
+                    <Button className="bg-indigo-900" processing={processing}>
                         メール再送信
                     </Button>
 
@@ -41,7 +41,7 @@ export default function VerifyEmail({ status }: Props) {
                         href={route("logout")}
                         method="post"
                         as="button"
-                        className="underline text-sm text-gray-600 hover:text-gray-900"
+                        className="underline text-sm text-gray-100 hover:text-gray-400"
                     >
                         ログアウト
                     </Link>

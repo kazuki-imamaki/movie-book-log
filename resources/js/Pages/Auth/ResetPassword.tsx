@@ -89,7 +89,7 @@ export default function ResetPassword({ token, email }: Props) {
 
                 <div className="flex items-center justify-end mt-4">
                     <Button
-                        className="ml-4 bg-gray-900"
+                        className="ml-4 bg-indigo-900"
                         processing={processing}
                     >
                         パスワードを変更する

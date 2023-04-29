@@ -28,7 +28,7 @@ export default function ForgotPassword({ status }: Props) {
         <Guest>
             <Head title="パスワードリセット" />
 
-            <div className="mb-4 text-sm text-gray-500 leading-normal">
+            <div className="mb-4 text-sm text-gray-100 leading-normal">
                 メールアドレスを入力してください。パスワードリセット用のリンクを送ります。
             </div>
 
@@ -52,7 +52,7 @@ export default function ForgotPassword({ status }: Props) {
 
                 <div className="flex items-center justify-end mt-4">
                     <Button
-                        className="ml-4 bg-gray-900"
+                        className="ml-4 bg-indigo-900"
                         processing={processing}
                     >
                         パスワードのリセットリンクを送る
