@@ -15,7 +15,7 @@ class StorageTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_S3にファイルを保存することができる()
     {
         // Storage::fake('s3');
 
