@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('memo')->nullable(true);
 
-            $table->string('image')->nullable(true);
+            // $table->string('image')->nullable(true);
 
             $table->timestamps();
         });
