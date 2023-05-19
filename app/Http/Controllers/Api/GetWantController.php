@@ -21,9 +21,9 @@ class GetWantController extends Controller
         $movies = WantMovie::where('user_id', $user_id)->where('is_done', 0)->orderBy('updated_at', 'desc')->get();
 
         foreach ($movies as &$movie) {
-            $movie = array(
-                'poster' => Image::where('id', $movie->images_id)->first()
-            );
+            $image = Image::where('id', $movie->images_id)->first();
+
+            $movie['poster'] = $image->name;
         }
         unset($movie);
 
