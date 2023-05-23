@@ -8,7 +8,6 @@ use App\Models\WantMovie;
 use App\Models\Image;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class PostContentController extends Controller
 {
@@ -33,15 +32,13 @@ class PostContentController extends Controller
 
             // S3へのアップロード
             $disk = Storage::disk('s3');
-            $destinationPath = 'movies/' . $fileName; // S3に保存するパス
-            $disk->put($destinationPath, file_get_contents($tempFilePath));
+            $disk->put($fileName, file_get_contents($tempFilePath));
 
             // 一時ファイルの削除
             unlink($tempFilePath);
 
             // アップロードされた画像のURL
             $imageUrl = $disk->url($fileName);
-            // Log::debug("imageUrl", [$imageUrl]);
 
             $image = new Image;
             $image->name = $imageUrl;
