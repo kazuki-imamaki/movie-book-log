@@ -217,8 +217,8 @@ const AddModal = (props: any) => {
                                 <img
                                     src={
                                         props.editFlag
-                                            ? props.putData.poster_path
-                                            : props.postData.poster_path
+                                            ? props.putData.poster
+                                            : props.postData.poster
                                     }
                                     alt=""
                                 />
