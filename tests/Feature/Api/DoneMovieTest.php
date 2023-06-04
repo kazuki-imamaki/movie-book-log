@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\WantMovie;
+use App\Models\Image;
 
 class DoneMovieTest extends TestCase
 {
@@ -21,9 +22,12 @@ class DoneMovieTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $image = Image::factory()->create(['name' => "https://example.com/image.jpg"]);
+
         WantMovie::factory()->create([
             'user_id' => $user->id,
-            'is_done' => 1
+            'is_done' => 1,
+            'images_id' => $image->id
         ]);
 
         $response = $this->actingAs($user)->get("/api/done");
@@ -34,7 +38,8 @@ class DoneMovieTest extends TestCase
             ->assertJsonCount(1)
             ->assertJsonFragment([
                 'user_id' => $user->id,
-                'is_done' => 1
+                'is_done' => 1,
+                'poster' => 'https://example.com/image.jpg'
             ]);
     }
 
