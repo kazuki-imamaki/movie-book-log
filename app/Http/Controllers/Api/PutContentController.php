@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\WantMovie;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class PutContentController extends Controller
 {
@@ -20,16 +23,16 @@ class PutContentController extends Controller
         $movie = WantMovie::where('id', $request->id)->firstOrFail();
         $image = Image::where('id', $movie->images_id)->firstOrFail();
 
+
         // 画像の取得
-        if ($request->poster_path != null) {
-            $image_url = $request->poster_path;
+        if ($request->poster != null) {
+            $image_url = $request->poster;
 
             $response = Http::get($image_url);
             // 一時ファイルの保存
             $fileName = uniqid() . '.jpg'; // ファイル名の生成（一意の値を使用する例）
             $tempFilePath = storage_path('app/public/temp/' . $fileName); // 一時ファイルの保存先パス
             file_put_contents($tempFilePath, $response->getBody());
-
 
             // S3へのアップロード
             $disk = Storage::disk('s3');
