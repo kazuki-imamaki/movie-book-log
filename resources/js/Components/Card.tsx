@@ -32,7 +32,7 @@ const Card = (props) => {
                                     <button>
                                         <img
                                             className="lg:h-80 md:h-60 w-full object-cover object-center"
-                                            src={content.poster_path}
+                                            src={content.poster}
                                             alt="blog"
                                             onClick={getToEdit}
                                             id={content.id}

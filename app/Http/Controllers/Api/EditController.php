@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WantMovie;
+use App\Models\Image;
 
 class EditController extends Controller
 {
@@ -19,7 +20,11 @@ class EditController extends Controller
         $user_id = $request->user()->id;
         $id = $request->id;
         $movie = WantMovie::where('user_id', $user_id)->where('id', $id)->first();
-        $movie->poster_path = str_replace("342", "154", $movie->poster_path);
+
+        $image = Image::where('id', $movie->images_id)->first();
+        $movie['poster'] = $image->name;
+
+
         return $movie;
     }
 }

@@ -13,18 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('want_movies', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-
-            $table->string('title');
-
-            $table->string('memo')->nullable(true);
-
-            // $table->string('image')->nullable(true);
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -36,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('want_movies');
+        Schema::dropIfExists('images');
     }
 };

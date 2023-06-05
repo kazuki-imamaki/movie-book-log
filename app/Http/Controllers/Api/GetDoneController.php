@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WantMovie;
+use App\Models\Image;
 
 class GetDoneController extends Controller
 {
@@ -17,6 +18,16 @@ class GetDoneController extends Controller
     public function __invoke(Request $request)
     {
         $user_id = $request->user()->id;
-        return WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('updated_at', 'desc')->get();
+
+        $movies = WantMovie::where('user_id', $user_id)->where('is_done', 1)->orderBy('updated_at', 'desc')->get();
+
+        foreach ($movies as &$movie) {
+            $image = Image::where('id', $movie->images_id)->first();
+
+            $movie['poster'] = $image->name;
+        }
+        unset($movie);
+
+        return $movies;
     }
 }
