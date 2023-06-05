@@ -16,7 +16,8 @@ class SearchImageController extends Controller
     public function __invoke(Request $request)
     {
         $contentTitle = $request->title;
-        $base_url = "https://image.tmdb.org/t/p/w342";
+        $base_url = "https://image.tmdb.org/t/p/w154";
+        // $base_url = "https://image.tmdb.org/t/p/w342";
         $api_key = config('services.tmdb.api-key');
 
         $search_movie_url =
