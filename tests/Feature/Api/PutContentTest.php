@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\WantMovie;
+use App\Models\Image;
 
 class PutContentTest extends TestCase
 {
@@ -15,50 +16,61 @@ class PutContentTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_put_content()
     {
-        $user = User::factory()->create();
+        $this->withoutExceptionHandling();
 
+        // テスト用のデータを作成
+        $user = User::factory()->create();
+        $image = Image::factory()->create([
+            'name' => 'https://example.com/image.jpg',
+        ]);
         $movie = WantMovie::factory()->create([
-            // 'id' => 10,
             'user_id' => $user->id,
-            // 'title' => 'test',
-            // 'memo' => 'testest'
+            'images_id' => $image->id, // 仮の値を設定する
         ]);
 
+        // テストデータ
         $data = [
             'id' => $movie->id,
             'title' => 'Inception',
             'memo' => 'Great movie',
-            'poster_path' => 'https://example.com/image.jpg',
-            'userId' => $user->id,
+            'poster' => 'https://example.com/image.jpg',
             'is_done' => true,
             'date' => '2022-01-01',
-            'star' => 5
+            'star' => 5,
         ];
 
+        // PUTリクエストを送信
         $response = $this->actingAs($user)->put('/api/putContent', $data);
 
+        // レスポンスのアサーション
         $response->assertStatus(200);
 
+        // データベースのアサーション
         $this->assertDatabaseHas('want_movies', [
             'id' => $movie->id,
             'title' => 'Inception',
             'memo' => 'Great movie',
-            'poster_path' => 'https://example.com/image.jpg',
             'user_id' => $user->id,
             'is_done' => 1,
             'date' => '2022-01-01',
-            'star' => 5
+            'star' => 5,
         ]);
 
+        // 更新されたモデルを取得
         $updatedMovie = WantMovie::find($movie->id);
 
+        // モデルのアサーション
         $this->assertEquals('Inception', $updatedMovie->title);
         $this->assertEquals('Great movie', $updatedMovie->memo);
-        $this->assertEquals('https://example.com/image.jpg', $updatedMovie->poster_path);
-        $this->assertTrue(true, $updatedMovie->is_done);
+        $this->assertEquals(1, $updatedMovie->is_done);
         $this->assertEquals('2022-01-01', $updatedMovie->date);
         $this->assertEquals(5, $updatedMovie->star);
+
+        // 画像のアサーション
+        $image = Image::where('id', $updatedMovie->images_id)->first();
+        $this->assertNotNull($image);
+        $this->assertEquals('https://example.com/image.jpg', $image->name);
     }
 }

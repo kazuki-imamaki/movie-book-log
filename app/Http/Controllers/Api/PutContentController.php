@@ -25,7 +25,8 @@ class PutContentController extends Controller
 
 
         // 画像の取得
-        if ($request->poster != null) {
+        if ($request->poster == $image->name) {
+        } else if ($request->poster != $image->name) {
             $image_url = $request->poster;
 
             $response = Http::get($image_url);
@@ -47,7 +48,7 @@ class PutContentController extends Controller
             // $image = new Image;
             $image->name = $imageUrl;
             $image->save();
-        } else {
+        } else if ($request->poster === null) {
             $movie->images_id = null;
         }
 
