@@ -66,14 +66,15 @@ const AddModal = (props: any) => {
         props.setLoading(true);
         props.setSearchFlag(true);
         axios
-            .get("api/search", {
+            .get("api/search/series", {
                 params: {
                     title: props.postData.title,
                 },
             })
             .then((res) => {
-                props.setResults(res.data);
-                props.setLoading(false);
+                // props.setResults(res.data);
+                // props.setLoading(false);
+                console.log(res);
             });
     };
 
